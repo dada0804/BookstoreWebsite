@@ -34,11 +34,10 @@ public class UserDAOTest {
 	@Test
 	public void testCreateUsers() {
 		Users user1  = new Users();
-		user1.setEmail("lala@codejava.net");
-		user1.setFullName("xixi");
-		user1.setPassword("asdfg");	
+		user1.setEmail("hahala@codejava.net");
+		user1.setFullName("xhhxi");
+		user1.setPassword("assssdfg");	
 		user1 = userDAO.create(user1);
-		
 		assertTrue(user1.getUserId()>0);	
 	}	
 	
@@ -102,7 +101,7 @@ public class UserDAOTest {
 		for(Users user:listUsers) {
 			System.out.println(user.getEmail());
 		}
-		assertTrue(listUsers.size()>0);
+		assertTrue(listUsers.size()==2);
 	}
 	
 	@Test

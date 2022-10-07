@@ -13,8 +13,10 @@ import javax.persistence.Table;
 // when this is used, the ORM will inspect and analyze the class's info for mapping. 
 @NamedQueries({
 	@NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u ORDER BY u.fullName"),
-	@NamedQuery(name = "Users.countAll", query = "SELECT COUNT (u) FROM Users u")
+	@NamedQuery(name = "Users.countAll", query = "SELECT COUNT (u) FROM Users u"),
+	@NamedQuery(name = "Users.findByEmail", query = "SELECT Count(u) FROM Users u WHERE u.email = :email")
 })
+@Entity 
 @Table
 //if the name is different, need to add (name = ""). This is optional. 
 public class Users {
@@ -25,7 +27,7 @@ public class Users {
 	private String password;
 	
 	public Users() {
-		
+		super();
 	}
 
 	public Users(String email, String fullName, String password) {
@@ -50,6 +52,7 @@ public class Users {
 		this.userId = userId;
 	}
 
+	@Column(name = "email")
 	public String getEmail() {
 		return email;
 	}
@@ -67,6 +70,7 @@ public class Users {
 		this.fullName = fullName;
 	}
 
+	@Column(name = "password")
 	public String getPassword() {
 		return password;
 	}

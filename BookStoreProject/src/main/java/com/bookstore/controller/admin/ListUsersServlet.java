@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Servlet implementation class ListUsersServlet
  */
-@WebServlet(name = "list_users", urlPatterns = "/admin/list_users")
+@WebServlet(name = "list_users", urlPatterns = {"/admin/list_users"})
 public class ListUsersServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -28,18 +28,11 @@ public class ListUsersServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		UserServices userServices = new UserServices();
-	
-		List<Users> listUsers = userServices.listUsers();
-		request.setAttribute("listUsers", listUsers);
-		
 		System.out.println("success");
+		UserServices userServices = new UserServices(request, response);
 		
-		String listPage = "user_list.jsp";
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(listPage);
-		
-		requestDispatcher.forward(request, response);
+		// 但是这里放null不好，最好可以overload -- 看UserService class
+		userServices.listUsers();
 
 	}
 

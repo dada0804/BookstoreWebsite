@@ -21,20 +21,20 @@
     	<table>
     	<tr>
     	<td align = "right">Email:     	</td>
-    	<td aligh = "left"><input type = "text" name = "email" id = "email" size = "20" /></td>
+    	<td align = "left"><input type = "text" name = "email" id = "email" size = "20" /></td>
     	
     	
     	</tr>
     	<tr>
     	<td align = "right">Full Name:     	</td>
-    	<td aligh = "left"><input type = "text" name = "fullname" id = "fullname" size = "20" /></td>
+    	<td align = "left"><input type = "text" name = "fullname" id = "fullname" size = "20" /></td>
     	
     	
     	</tr>
     	
     	<tr>
     	<td align = "right">Password:     	</td>
-    	<td aligh = "left"><input type = "text" name = "fullname" id = "password" size = "20" /></td>
+    	<td align = "left"><input type = "text" name = "password" id = "password" size = "20" /></td>
     	
     	
     	</tr>
