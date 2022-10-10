@@ -14,14 +14,14 @@ import javax.persistence.Table;
 @NamedQueries({
 	@NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u ORDER BY u.fullName"),
 	@NamedQuery(name = "Users.countAll", query = "SELECT COUNT (u) FROM Users u"),
-	@NamedQuery(name = "Users.findByEmail", query = "SELECT Count(u) FROM Users u WHERE u.email = :email")
+	@NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email")
 })
 @Entity 
 @Table
 //if the name is different, need to add (name = ""). This is optional. 
 public class Users {
 
-	private Integer userId;
+	private Long userId;
 	private String email;
 	private String fullName;
 	private String password;
@@ -44,11 +44,11 @@ public class Users {
 	// type.identity means generate values at the table level; AUTO means at the
 	// database level.
 
-	public Integer getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 

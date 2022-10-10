@@ -34,7 +34,6 @@ public class CreateUserServlet extends HttpServlet {
 		//改成👇 
 		UserServices userServices = new UserServices( request, response);
 		userServices.createUser();
-		userServices.listUsers( "New user created successfully");
 		
 	}
 

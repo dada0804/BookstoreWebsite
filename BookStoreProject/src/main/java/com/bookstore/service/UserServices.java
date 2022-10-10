@@ -1,6 +1,7 @@
 package com.bookstore.service;
 
 import java.io.IOException;
+import java.nio.channels.AlreadyBoundException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -57,20 +58,32 @@ public class UserServices {
 		requestDispatcher.forward(request, response);
 	}
 	
-	public void createUser() throws IOException
+	public void createUser() throws IOException, ServletException
 	{
 		String email = request.getParameter("email");
 		String fullname = request.getParameter("fullname");
 
 		String password = request.getParameter("password");	
 		System.out.println("the email is "+email+ " and the name is " + fullname+ " and the pw is " +password);
+		
+		//check whether the email already exists 
+		Users existUsers = userDAO.findByEmail(email);
+		if (existUsers != null) {
+			String message = "Could not create Use. A user with email " + email + "already exists.";
+			request.setAttribute("message", message);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("message.jsp");
+			dispatcher.forward(request, response);
+			
+		} else {
+			Users newUser = new Users(email, fullname, password);
+			System.out.println("is this okay");
+			userDAO.create(newUser);
+			listUsers( "New user created successfully");
 
-//		response.getWriter().println("Email: " + email);
-//		response.getWriter().println("fullname: " + fullname);
-//		response.getWriter().println("password: " + password);
-		Users newUser = new Users(email, fullname, password);
-		System.out.println("is this okay");
-		userDAO.create(newUser);
+		}
+		
+
+		
 		
 	}
 	

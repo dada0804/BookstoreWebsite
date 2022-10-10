@@ -2,6 +2,7 @@ package com.bookstore.dao;
 
 import static org.junit.Assert.*;
 
+import java.awt.print.Printable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,6 +11,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 
+import org.apache.catalina.User;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -52,7 +54,7 @@ public class UserDAOTest {
 	@Test
 	public void testUpdateUsers() {
 		Users user = new Users();
-		user.setUserId(1);
+		user.setUserId(1l);
 		user.setEmail("name@codejava.net");
 		user.setFullName("name");
 		user.setPassword("you never know");
@@ -109,6 +111,13 @@ public class UserDAOTest {
 		long userNum = userDAO.count();
 		assertEquals(userNum, 17);
 				
+	}
+	
+	@Test 
+	public void testFindByEmails() {
+		String email = "lala@codejava.net";
+		Users users = userDAO.findByEmail(email);
+		assertNotNull(users);
 	}
 	
 
