@@ -36,6 +36,7 @@ public class UserDAOTest {
 	@Test
 	public void testCreateUsers() {
 		Users user1  = new Users();
+		user1.setUserId(1l);
 		user1.setEmail("hahala@codejava.net");
 		user1.setFullName("xhhxi");
 		user1.setPassword("assssdfg");	

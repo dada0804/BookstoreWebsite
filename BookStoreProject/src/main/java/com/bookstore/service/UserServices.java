@@ -91,18 +91,19 @@ public class UserServices {
 		// TODO Auto-generated method stub
 		Long userId = Long.parseLong(request.getParameter("id"));
 		Users user = userDAO.get(userId);
+		String destPage = "user_form.jsp";
 		if(user == null) {
+			destPage = "message.jsp";
 			String messageString = "Could not find user with userId " + userId; 
 			request.setAttribute("message", messageString);
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
-			requestDispatcher.forward(request, response);
 		} else {
-			System.out.println(user.getFullName());
-			String editPage = "user_form.jsp";
+//			System.out.println(user.getFullName());
 			request.setAttribute("user", user);
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher(editPage);
-			requestDispatcher.forward(request, response);
+			
 		}
+		
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(destPage);
+		requestDispatcher.forward(request, response);
 	
 	}
 	
@@ -130,6 +131,32 @@ public class UserServices {
 		}
 		
 	}
-	
 
+	public void deleteUser() throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		Long userId = Long.parseLong(request.getParameter("id"));
+		Users user = userDAO.get(userId);
+		if(userId == 1) 
+		{
+			String message = "The default admin user account cannot be deleted.";
+			request.setAttribute("message", message);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
+			requestDispatcher.forward(request, response);
+		}
+		else 
+			if(user == null) 
+		{
+			String message = "User with userId " + userId + " has been deleted by other admins.";
+			request.setAttribute("message", message);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
+			requestDispatcher.forward(request, response);
+		}
+		else 
+		{
+		userDAO.delete(userId);
+		String message = "User has been deleted successfully";
+		listUsers(message);
+	}
+	
+	}
 }

@@ -39,7 +39,8 @@
 				<td> ${user.userId}</td>
 				<td> ${user.email}</td>
 				<td> ${user.fullName}</td>
-				<td><a href = "edit_user?id=${user.userId}">Edit</a>   <a href = "delete">Delete</a></td>
+				<td><a href = "edit_user?id=${user.userId}">Edit</a>   
+				<a href = "javascript:confirmDelete(${user.userId})">Delete</a></td>
 			</tr>
 			</c:forEach>
 		
@@ -53,4 +54,18 @@
 	<%@ include file = "footer.jsp" %>
 	
 </body>
+
+<script type = "text/javascript">
+function confirmDelete(userId){
+	/* if(userId == 1){
+		alert("The default admin user account cannot be deleted.");
+	}
+	
+	else  */
+		if (confirm("Are you sure you want to delete the user with ID " + userId + " ?")){
+		window.location = "delete_user?id=" +userId; //the DeleteUserServlet 
+	}
+}
+
+</script>
 </html>
