@@ -86,6 +86,50 @@ public class UserServices {
 		
 		
 	}
+
+	public void editUser() throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		Long userId = Long.parseLong(request.getParameter("id"));
+		Users user = userDAO.get(userId);
+		if(user == null) {
+			String messageString = "Could not find user with userId " + userId; 
+			request.setAttribute("message", messageString);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
+			requestDispatcher.forward(request, response);
+		} else {
+			System.out.println(user.getFullName());
+			String editPage = "user_form.jsp";
+			request.setAttribute("user", user);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher(editPage);
+			requestDispatcher.forward(request, response);
+		}
+	
+	}
+	
+	public void updateUser() throws ServletException, IOException {
+		Long userId = Long.parseLong(request.getParameter("userId"));
+		String email = request.getParameter("email");
+		String fullname = request.getParameter("fullname");
+		String password = request.getParameter("password");	
+		
+		System.out.println("the userId is " + userId);
+		Users userByEmail = userDAO.findByEmail(email);
+		Users userById = userDAO.get(userId);
+		//此时还没更新 
+		if(userByEmail !=null && userByEmail.getUserId() != userById.getUserId()) {
+			String message1 = "Couldn't update the user. The email already existed";
+			request.setAttribute("message", message1);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
+			requestDispatcher.forward(request, response);
+		} else {
+		
+		Users user = new Users(userId,email,fullname,password);
+		userDAO.update(user);  
+		String message = "User has been updated successfully";
+		listUsers(message);
+		}
+		
+	}
 	
 
 }
