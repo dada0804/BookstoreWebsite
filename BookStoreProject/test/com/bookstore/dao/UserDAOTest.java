@@ -2,36 +2,31 @@ package com.bookstore.dao;
 
 import static org.junit.Assert.*;
 
-import java.awt.print.Printable;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityNotFoundException;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 
-import org.apache.catalina.User;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.bookstore.entity.Users;
 
-public class UserDAOTest {
+public class UserDAOTest extends BaseDAOTest {
 	
-	private static EntityManagerFactory entityManagerFactory;
-	private static EntityManager entityManager;
-    private static UserDAO userDAO;
+	private static UserDAO userDAO = new UserDAO(entityManager);
 	
 	@BeforeClass
-	public static void setupClass() {
-		entityManagerFactory = Persistence.createEntityManagerFactory("BookStoreWebsite");
-		entityManager = entityManagerFactory.createEntityManager();
-		
-		userDAO = new UserDAO(entityManager);
+	public static void setUpBeforeClass() throws Exception {
+		BaseDAOTest.setUpBeforeClass();
+		userDAO = new UserDAO(entityManager); 
 	}
 	
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+		BaseDAOTest.tearDownAfterClass();
+	}
 
 	@Test
 	public void testCreateUsers() {
@@ -120,12 +115,5 @@ public class UserDAOTest {
 		Users users = userDAO.findByEmail(email);
 		assertNotNull(users);
 	}
-	
 
-	@AfterClass
-	public static void tearDownClass() {
-		entityManager.close();
-		entityManagerFactory.close();
-		
-	}
 }

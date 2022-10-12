@@ -1,4 +1,4 @@
-package com.bookstore.controller.admin;
+package com.bookstore.controller.admin.user;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,25 +10,30 @@ import javax.servlet.http.HttpServletResponse;
 import com.bookstore.service.UserServices;
 
 /**
- * Servlet implementation class UpdateUserServlet
+ * Servlet implementation class DeleteUserServlet
  */
-@WebServlet("/admin/update_user")
-public class UpdateUserServlet extends HttpServlet {
+@WebServlet("/admin/delete_user")
+public class DeleteUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateUserServlet() {
+    public DeleteUserServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub]
 		UserServices userServices = new UserServices(request, response);
-		userServices.updateUser();
+		userServices.deleteUser();
 		
 	}
+
+	
 
 }
