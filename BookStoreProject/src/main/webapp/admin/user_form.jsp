@@ -11,7 +11,7 @@
 <body>
 <%@ include file = "header.jsp" %>
 <div align = "center">
-<h2>
+<h1 class = "pageheading">
 	<c:if test = "${user != null }">
 	Edit User
 	
@@ -21,7 +21,7 @@
 		</c:if>
 	
 	
-	</h2>
+	</h1>
 	
 
     
@@ -63,8 +63,8 @@
     	<tr>
     	<td colspan = "2" align = "center">
     	
-    	<input type = "submit" value = "Save">
-    	<input type = "button" value = "Cancel" onclick = "javascript:history.go(-1);">
+    	<button type = "submit" value = "Save"></button>
+    	<button type = "button" value = "Cancel" onclick = "javascript:history.go(-1);"></button>
     	</td> 
     	
     	</tr>

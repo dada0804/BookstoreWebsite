@@ -7,11 +7,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Manage Users - Evergreen Bookstore Administration</title>
+<link rel = "stylesheet" type="text/css" href = "../css/style.css">
+
 </head>
 <body>
 <%@ include file = "header.jsp" %>
 <div align = "center">
-	<h2>Users Management</h2>
+	<h1 class = "pageheading">Users Management</h1>
 	<h3>
 	<a href = "user_form.jsp">Create New User</a>
 	</h3> 

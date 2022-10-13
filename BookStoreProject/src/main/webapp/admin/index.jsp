@@ -5,19 +5,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Evergreen Bookstore Administration</title>
-<link rel = "stylesheet" href = "src/main/webapp/css/style.css">
+<link rel = "stylesheet" type="text/css" href = "../css/style.css">
 </head>
 <body>
 <%@ include file = "header.jsp" %>
 <div align = "center">
-	<h2>Administration Dashboard</h2>
+	<h2 class = "pageheading">Administration Dashboard</h2>
 	
 
 
 </div>
     <div align = "center">
     <hr width = "60%"/>
-    <h2> Quick Action</h2>
+    <h1 class = "pageheading"> Quick Action</h1>
     <b>
     <a href = "create_book">New Book</a> &nbsp;
     <a href = "create_user">New User</a> &nbsp;
@@ -28,18 +28,18 @@
     
     
     <div align = "center">
-    	<h2>Recent Sales</h2>
+    	<h2 class = "pageheading">Recent Sales</h2>
     
     </div>
     
             <hr width = "60%"/>
     
        <div align = "center">
-    	<h2>Recent Reviews</h2>
+    	<h2 class = "pageheading">Recent Reviews</h2>
             <hr width = "60%"/>
     
     </div>   <div align = "center">
-    	<h2>Statistics</h2>        <hr width = "60%"/>
+    	<h2 class = "pageheading">Statistics</h2>        <hr width = "60%"/>
     	
     
     </div>
