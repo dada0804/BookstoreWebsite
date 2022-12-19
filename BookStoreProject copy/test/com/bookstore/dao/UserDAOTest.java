@@ -79,22 +79,6 @@ public class UserDAOTest extends BaseDAOTest {
 	}
 	
 	@Test
-	public void testCheckLoginSuccess() {
-		String emailString = "lala@codejava.net";
-		String passwordString = "asdfg";
-		boolean actual = userDAO.checkLogin(emailString, passwordString);
-		assertTrue(actual);
-	}
-	
-	@Test
-	public void testCheckLoginFail() {
-		String emailString = "laddla@codejava.net";
-		String passwordString = "asdfg";
-		boolean actual = userDAO.checkLogin(emailString, passwordString);
-		assertFalse(actual);
-	}
-	
-	@Test
 	public void testDeleteUsers() {
 		int userId = 5;
 		userDAO.delete(userId);

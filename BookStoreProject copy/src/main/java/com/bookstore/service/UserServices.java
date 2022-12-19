@@ -26,7 +26,7 @@ public class UserServices {
 	private HttpServletRequest request;
 	
 
-	public UserServices(EntityManager entityManager, HttpServletRequest request, HttpServletResponse response) {
+	public UserServices(HttpServletRequest request, HttpServletResponse response) {
 		entityManagerFactory = Persistence.createEntityManagerFactory("BookStoreWebsite");
 		entityManager = entityManagerFactory.createEntityManager();
 		
@@ -158,23 +158,5 @@ public class UserServices {
 		listUsers(message);
 	}
 	
-	}
-	
-	public void login() throws ServletException, IOException {
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		boolean loginResult = userDAO.checkLogin(email, password);
-		if(loginResult) {
-			System.out.println("User is authenticated");
-			request.getSession().setAttribute("useremail", email);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/");
-			dispatcher.forward(request, response);
-		} else {
-			String message = "Login Failed";
-			request.setAttribute("message", message);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-			dispatcher.forward(request, response);
-		}
-		
 	}
 }

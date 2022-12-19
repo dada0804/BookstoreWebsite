@@ -1,8 +1,6 @@
 package com.bookstore.dao;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;import org.junit.experimental.theories.Theories;
@@ -32,19 +30,6 @@ public class UserDAO extends JpaDAO<Users> implements GenericDAO<Users> {
 		return super.find(Users.class, userID);
 	}
 	
-	
-	public boolean checkLogin(String email, String password) {
-		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("email", email);
-		parameters.put("password", password);
-		List<Users> listUsers = super.findWithNamedQuery("Users.checkLogin", parameters);
-		if(listUsers.size()==1) {
-			return true;
-		}
-		return false;
-		//🤔 如果是我，可能直接用get，再检测对应的password是否是对的；但是这里直接就用到了SQL
-		// 但为什么要用Map的形式，不能直接查找再检测呢？ 定义一个namedquery，然后看是否有返回值 
-	}
 
 	@Override
 	public void delete(Object id) {

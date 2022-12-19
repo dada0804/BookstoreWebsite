@@ -11,18 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "admin", urlPatterns = { "/admin/" })
 public class AdminServlet extends HttpServlet {
-	
-
 	private static final long serialVersionUID = 1L;
 
 	public AdminServlet() {
 		super();
 
-	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doGet(req,resp);
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

@@ -14,8 +14,7 @@ import javax.persistence.Table;
 @NamedQueries({
 	@NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u ORDER BY u.fullName"),
 	@NamedQuery(name = "Users.countAll", query = "SELECT COUNT (u) FROM Users u"),
-	@NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email"),
-	@NamedQuery(name="Users.checkLogin", query = "SELECT u FROM Users u WHERE u.email =:email AND password = :password")
+	@NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email")
 })
 @Entity 
 @Table
@@ -50,7 +49,7 @@ public class Users {
 
 	@Column(name = "user_id")
 	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	// id indicate it's primary key.
 	// type.identity means generate values at the table level; AUTO means at the
 	// database level.

@@ -1,13 +1,8 @@
 package com.bookstore.dao;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.persistence.Query;
-
-import java.util.Set;
-
 import javax.persistence.EntityManager;
 
 public class JpaDAO<E> {
@@ -61,22 +56,6 @@ public class JpaDAO<E> {
 		Query query = entityManager.createNamedQuery(queryName);
 		query.setParameter(paramName, paramValue);
 		return query.getResultList();
-	}
-	
-	public List<E> findWithNamedQuery(String queryName, Map<String, Object>parameters){
-		Query query = entityManager.createNamedQuery(queryName);
-		//Returns a Set view of the mappings contained in this map. 
-		//The set is backed by the map, so changes to the map are reflected in the set, and vice-versa. 
-		//If the map is modified while an iteration over the set is in progress 
-		//(except through the iterator's own remove operation, or through the setValue operation on a map entry returned by the iterator)
-		// the results of the iteration are undefined. The set supports element removal, which removes the corresponding mapping from the map, 
-		// via the Iterator.remove, Set.remove, removeAll, retainAll and clear operations. It does not support the add or addAll operations.
-//		Map<Entry<String,Object>> setParameters = parameters.entrySet();
-		for (Map.Entry<String, Object> entry : parameters.entrySet()) {
-			query.setParameter(entry.getKey(),entry.getValue());
-		}
-		return query.getResultList();
-		
 	}
 	
 	public long countWithNamedQuery(String queryName) {
