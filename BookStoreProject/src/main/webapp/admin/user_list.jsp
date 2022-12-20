@@ -5,13 +5,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Manage Users - Evergreen Bookstore Administration</title>
+	<meta charset="UTF-8">
+	<title>Manage Users - Evergreen Bookstore Administration</title>
+	<link rel="stylesheet" href = "../css/style.css">
+	<script type = "text/javascript" src="../js/jquery-3.6.1.min.js"></script> 
+	<script type = "text/javascript" src="../js/jquery.validate.min.js"></script> 
+
 </head>
 <body>
 <%@ include file = "header.jsp" %>
 <div align = "center">
-	<h2>Users Management</h2>
+	<h2 class="pageheading">Users Management</h2>
 	<h3>
 	<a href = "user_form.jsp">Create New User</a>
 	</h3> 
@@ -19,8 +23,8 @@
 
 	<c:if test="${message != null}">
 		<div align="center">
-			<h4>
-				<i>${message}</i>
+			<h4 class="message">
+				${message}
 			</h4>
 		</div>
 	</c:if>
@@ -40,7 +44,7 @@
 				<td> ${user.email}</td>
 				<td> ${user.fullName}</td>
 				<td><a href = "edit_user?id=${user.userId}">Edit</a>   
-				<a href = "javascript:confirmDelete(${user.userId})">Delete</a></td>
+				<a href = "javascript:void(0))" class="deleteLink" id="${user.userId}")>Delete</a></td><!-- to do nothing -->
 			</tr>
 			</c:forEach>
 		
@@ -52,20 +56,33 @@
 
 
 	<%@ include file = "footer.jsp" %>
-	
-</body>
-
 <script type = "text/javascript">
-function confirmDelete(userId){
+	$(document).ready(function(){
+		$(".deleteLink").each(function(){/* 对每个为deleteLink的function  */
+			$(this).on("click",function(){
+				userId=$(this).attr("id");/* this指的是deleteLink */
+				if (confirm("Are you sure you want to delete the user with ID " + userId + " ?")){
+					window.location = "delete_user?id=" +userId; //the DeleteUserServlet 
+				}
+		});
+	});
+	});
+
+
+/* function confirmDelete(userId){
 	/* if(userId == 1){
 		alert("The default admin user account cannot be deleted.");
 	}
 	
 	else  */
-		if (confirm("Are you sure you want to delete the user with ID " + userId + " ?")){
+		/* if (confirm("Are you sure you want to delete the user with ID " + userId + " ?")){
 		window.location = "delete_user?id=" +userId; //the DeleteUserServlet 
 	}
-}
-
+} */
+ 
 </script>
+	
+</body>
+
+
 </html>

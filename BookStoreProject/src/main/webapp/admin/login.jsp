@@ -5,10 +5,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Admin Login</title>
-<script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script type = "text/javascript" src="js/jquery.validate.min.js"></script>
+	<meta charset="UTF-8">
+	<title>Admin Login</title>
+	<script type = "text/javascript" src="../js/jquery-3.6.1.min.js"></script> 
+	<script type = "text/javascript" src="../js/jquery.validate.min.js"></script> 
+	<!-- 以上注意先后顺序！ -->
 </head>
 <body>
 	<div align = "center">
@@ -22,7 +23,7 @@
 			</h4>
 		</div>
 	</c:if>
-		<form id="loginForm" action="login" method = "post">
+		<form id="loginForm" action=login method = "post">
 			<table>
 			<tr>
 			<td> Email: </td>	
@@ -48,7 +49,7 @@
 					required:true,
 					email:true
 				},
-、				password:"required",
+				password:"required",
 			},
 			messages:{
 				email:{
@@ -58,7 +59,7 @@
 				password:"Please enter password"
 			}
 		});		
-	)};
+	});
 </script>
 </body>
 

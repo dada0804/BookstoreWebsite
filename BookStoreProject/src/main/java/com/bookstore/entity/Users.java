@@ -50,7 +50,7 @@ public class Users {
 
 	@Column(name = "user_id")
 	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	// id indicate it's primary key.
 	// type.identity means generate values at the table level; AUTO means at the
 	// database level.

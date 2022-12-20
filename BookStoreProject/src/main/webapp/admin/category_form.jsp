@@ -7,11 +7,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Create New User</title>
+	<link rel="stylesheet" href = "../css/style.css">
+	<script type = "text/javascript" src="../js/jquery-3.6.1.min.js"></script> 
+	<script type = "text/javascript" src="../js/jquery.validate.min.js"></script> 
 </head>
 <body>
 <%@ include file = "header.jsp" %>
 <div align = "center">
-<h2>
+<h2 class = "pageheading">
 	<c:if test = "${category != null }">
 	Edit Category
 	
@@ -30,14 +33,14 @@
     
     <div align = "center">
 	<c:if test = "${category != null }"> 
-    	<form action = "update_category" method = "post" >
+    <form action = "update_category" method = "post" id = "categoryForm">
 	<input type = "hidden" name = "id" value = "${category.categoryId}">
     		</c:if>
     		<c:if test = "${category == null }"> 
-    	<form action = "create_category" method = "post" onsubmit = "create_category" >
+    	<form action = "create_category" method = "post" onsubmit = "create_category" id = "categoryForm">
     		</c:if>
     	
-    	<table>
+    	<table class="form">
     	<tr>
     
     	<td align = "right">Name:     	</td>
@@ -49,8 +52,8 @@
     	<tr>
     	<td colspan = "2" align = "center">
     	
-    	<input type = "submit" value = "Save">
-    	<input type = "button" value = "Cancel" onclick = "javascript:history.go(-1);">
+    	<button type = "submit"> Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    	<button id="buttonCancel">Cancel</button>
     	</td> 
     	
     	</tr>
@@ -66,35 +69,26 @@
 
 	<%@ include file = "footer.jsp" %>
 	
+<script type = "text/javascript">
+	$(document).ready(function(){
+		$("#categoryForm").validate({
+			rules:{
+				name:"required"
+			},
+			messages:{
+				name:"Please enter category name"
+			}
+		});
+		$("#buttonCancel").click(function(){
+			history.go(-1);
+		});
+	});
+</script>
+	
+	
 </body>
 
-<script type = "text/javascript">
-	function validateFormInput(){
-		var fieldEmail = document.getElementById("email");
-		var fieldFullname = document.getElementById("fullname");
-		var fieldPassword = document.getElementById("password");
 
-		if(fieldEmail.value.length == 0){
-			alert("Email is required");
-			fieldFullname.focus();
-			return false;
-		}
-		
-		if(fieldFullname.value.length == 0){
-			alert("Fullname is required");
-			fieldEmail.focus();
-			return false;
-		}
-		
-		if(fieldPassword.value.length == 0){
-			alert("Password is required");
-			fieldPassword.focus();
-			return false;
-		}
-		
-		return true; 
-	}
-</script>
 
 
 

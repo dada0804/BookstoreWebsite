@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.bookstore.controller.BaseServlet;
 import com.bookstore.service.UserServices;
 
-/**
- * Servlet implementation class AdminLoginServlet
- */
+
 @WebServlet("/admin/login")
 public class AdminLoginServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
@@ -23,7 +21,7 @@ public class AdminLoginServlet extends BaseServlet {
 //		String password = request.getParameter("password");
 //		response.getWriter().println(email+","+password);
 		
-		UserServices userServices = new UserServices(entityManager,request, response);
+		UserServices userServices = new UserServices(request, response);
 		userServices.login();
 				
 	}

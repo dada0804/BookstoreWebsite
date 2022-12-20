@@ -26,7 +26,7 @@ public class UserServices {
 	private HttpServletRequest request;
 	
 
-	public UserServices(EntityManager entityManager, HttpServletRequest request, HttpServletResponse response) {
+	public UserServices(HttpServletRequest request, HttpServletResponse response) {
 		entityManagerFactory = Persistence.createEntityManagerFactory("BookStoreWebsite");
 		entityManager = entityManagerFactory.createEntityManager();
 		

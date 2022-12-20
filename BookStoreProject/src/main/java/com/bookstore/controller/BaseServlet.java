@@ -10,12 +10,11 @@ import javax.servlet.http.HttpServlet;
 /**
  * Servlet implementation class BaseServlet
  */
-@WebServlet("/")
 public class BaseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected EntityManagerFactory entityManagerFactory;
 	protected EntityManager entityManager;
-	@Override
+	@Override 
 	public void destroy() {
 		// TODO Auto-generated method stub
 		entityManager.close();

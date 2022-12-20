@@ -5,13 +5,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Create New User</title>
+	<meta charset="UTF-8">
+	<title>Create New User</title>
+	<link rel="stylesheet" href = "../css/style.css">
+	<script type = "text/javascript" src="../js/jquery-3.6.1.min.js"></script> 
+	<script type = "text/javascript" src="../js/jquery.validate.min.js"></script> 
+
 </head>
 <body>
 <%@ include file = "header.jsp" %>
 <div align = "center">
-<h2>
+<h2 class="pageheading">
 	<c:if test = "${user != null }">
 	Edit User
 	
@@ -30,14 +34,14 @@
     
     <div align = "center">
 	<c:if test = "${user != null }"> 
-    	<form action = "update_user" method = "post" onsubmit = "return validateFormInput()">
+    	<form id = "userForm" action = "update_user" method = "post" ">
 	<input type = "hidden" name = "userId" value = "${user.userId}">
     		</c:if>
     		<c:if test = "${user == null }"> 
-    	<form action = "create_user" method = "post" onsubmit = "return validateFormInput()">
+    	<form id = "userForm" action = "create_user" method = "post">
     		</c:if>
     	
-    	<table>
+    	<table class="form">
     	<tr>
     
     	<td align = "right">Email:     	</td>
@@ -63,8 +67,8 @@
     	<tr>
     	<td colspan = "2" align = "center">
     	
-    	<input type = "submit" value = "Save">
-    	<input type = "button" value = "Cancel" onclick = "javascript:history.go(-1);">
+    	<button type = "submit">Save</button>&nbsp;&nbsp;&nbsp;
+    	<button id="buttonCancel">Cancel</button>
     	</td> 
     	
     	</tr>
@@ -72,18 +76,37 @@
     	</form>
     
     </div>
-    
-    
-    
-    
-
-
 	<%@ include file = "footer.jsp" %>
 	
-</body>
 
 <script type = "text/javascript">
-	function validateFormInput(){
+$(document).ready(function(){
+	$("#userForm").validate({
+		rules:{
+			email:{
+				required: true,
+				email: true
+			},
+			fullname:"required",
+			password:"required"
+		},
+		messages:{
+			email:{
+				required:"Please enter email",
+				email: "Please enter a valid email"
+			},
+			fullname:"Please enter fullname",
+			password:"Please enter password"
+		}
+	});
+	
+	$("#buttonCancel").click(function(){
+		history.go(-1);
+	});
+});
+
+
+	/* function validateFormInput(){
 		var fieldEmail = document.getElementById("email");
 		var fieldFullname = document.getElementById("fullname");
 		var fieldPassword = document.getElementById("password");
@@ -107,9 +130,9 @@
 		}
 		
 		return true; 
-	}
+	} */
 </script>
 
-
+</body>
 
 </html>

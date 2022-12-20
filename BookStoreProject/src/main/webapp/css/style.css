@@ -1,0 +1,103 @@
+@charset "UTF-8";
+
+/* id */
+#headermenu{
+	display:table
+}
+
+/* 混合 */
+#headermenu div{
+	display:table-cell; 
+	padding-right :30px;
+}
+
+#headermenu a:link{
+	font-size:larger;
+}
+
+/* 调整小图标  */
+.menu_item
+{
+	width: 50px;
+	height:50px;
+}
+
+
+/* a:link - 正常，未访问过的链接
+a:visited - 用户已访问过的链接
+a:hover - 当用户鼠标放在链接上时
+a:active - 链接被点击的那一刻 */
+
+a:link{
+	color: cornflowerBlue;
+	text-decoration:none;	
+}
+
+a:visited{
+	color: indigo;
+}
+
+a:hover{
+	color:blue;
+	text-decoration:underline;
+}
+
+a:active{
+	color:red;
+}
+
+.pageheading{
+	color: darkblue;
+}
+
+table{
+	border: 1px solid black;
+	/*如果可能，边框会合并为一个单一的边框。*/
+	border-collapse: collapse;
+}
+
+th, td {
+	padding:8px;
+}
+
+th{
+	background: darkblue;
+	color:cornsilk;
+	font-size:larger;
+}
+
+table.form{
+	border: 0;/* 外面的框去掉 */
+	padding: 4px;
+}
+
+button{
+	padding: 6px;
+	border-radius: 5px;
+}
+
+button[type=submit]{
+	font-weight: bold;
+}
+
+button:hover{
+	background-color: white;
+	color:green;
+}
+
+input{
+	border: 1px solid; 
+	border-radius: 3px; /* 边框四个角弧度  */
+	border-color: green;
+	height:20px;	
+}
+
+.message{
+	font-style: italic;
+	color: blue;
+}
+
+.error{ /* js自动分配了一个class为error */
+	color:red;
+	margin: 5px;
+}
