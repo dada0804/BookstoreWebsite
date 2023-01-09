@@ -18,6 +18,7 @@ public class BaseDAOTest {
 		entityManagerFactory = Persistence.createEntityManagerFactory("BookStoreWebsite");
 		entityManager = entityManagerFactory.createEntityManager();		
 	}
+	
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {

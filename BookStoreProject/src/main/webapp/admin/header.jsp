@@ -19,7 +19,7 @@ Welcome, <c:out value = "${sessionScope.useremail}"/> | <a href = "logout">Logou
 		</a> 
 	</div>
 	<div>
-		<a href = "books">
+		<a href = "list_books">
 			<img src = "../images/book.png" class="menu_item"/><br/>Books
 		</a> 
 	</div>

@@ -43,13 +43,8 @@
 				<a href = "javascript:void(0);" class="deleteLink" id ="${category.categoryId}">Delete</a></td>
 			</tr>
 			</c:forEach>
-		
-		
-	
-	</table>
-	
+	</table>	
 	</div>
-
 
 	<%@ include file = "footer.jsp" %>
 <script type = "text/javascript">
