@@ -174,6 +174,70 @@ public class BookDAOTest extends BaseDAOTest {
 		long cnt = bookDAO.count();
 		assertEquals(cnt, 3);
 	}
+	
+	@Test
+	public void testListByCategory() {
+		int categoryId = 12;
+		List<Book> listBooks = bookDAO.listByCategory(categoryId);
+		assertTrue(listBooks.size()==2);
+	}
+	
+	@Test
+	public void testListByCategoryFail() {
+		int categoryId = 13;
+		List<Book> listBooks = bookDAO.listByCategory(categoryId);
+		assertTrue(listBooks.size()==0);
+	}
+	
+	@Test
+	public void testListNew() {
+		List<Book> books = bookDAO.listNewBooks();
+		for(Book b: books) {
+			System.out.println(b.getTitle()+ " - " + b.getPublishDate());
+		}
+		assertTrue(books.size()==4);
+	}
+	
+	@Test
+	public void testSearch() {
+		String keyword = "Java";
+		List<Book> listBook = bookDAO.search(keyword);
+		for(Book b: listBook) {
+			System.out.println(b.getTitle()+ " - " + b.getPublishDate());
+		}
+		assertTrue(listBook.size()>0);
+	}
+	
+	@Test
+	public void testSearchAuthor() {
+		String keyword = "Joshua";
+		List<Book> listBook = bookDAO.search(keyword);
+		for(Book b: listBook) {
+			System.out.println(b.getTitle()+ " - " + b.getAuthor());
+		}
+		assertTrue(listBook.size()==2);
+	}
+	
+	@Test
+	public void testSearchDescription() {
+		String keyword = "Joshua";
+		List<Book> listBook = bookDAO.search(keyword);
+		for(Book b: listBook) {
+			System.out.println(b.getTitle()+ " - " + b.getDescription());
+		}
+		assertTrue(listBook.size()==2);
+	}
+	
+	@Test
+	public void testSearchAll() {
+		String keyword = "Java";
+		List<Book> listBook = bookDAO.search(keyword);
+		for(Book b: listBook) {
+			System.out.println(b.getTitle()+ " - " + b.getDescription());
+		}
+		assertTrue(listBook.size()==4);
+	}
+
 
 
 }

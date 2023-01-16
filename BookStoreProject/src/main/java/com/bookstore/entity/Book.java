@@ -31,8 +31,16 @@ import javax.persistence.UniqueConstraint;
 @NamedQueries({
 	@NamedQuery(name = "Book.findAll", query = "SELECT b From Book b"),
 	@NamedQuery(name = "Book.findByTitle", query = "SELECT b FROM Book b WHERE b.title = :title"),
-	@NamedQuery(name = "Book.countAll", query = "SELECT COUNT(*) FROM Book b")
+	@NamedQuery(name = "Book.countAll", query = "SELECT COUNT(*) FROM Book b"),
+	@NamedQuery(name = "Book.findByCategory", query = "SELECT b FROM Book b JOIN Category c "
+			+ "on b.category.categoryId = c.categoryId "
+			+ "AND c.categoryId = :catId"),
+	@NamedQuery(name= "Book.listNew", query = "SELECT b FROM Book b ORDER BY b.publishDate DESC"),
+	@NamedQuery(name = "Book.search", query = "SELECT b FROM Book b WHERE b.title LIKE '%'||:keyword || '%' "
+			+ "OR b.author LIKE '%'||:keyword || '%' "
+			+ "OR b.description LIKE '%'||:keyword || '%'" )
 })
+
 public class Book implements java.io.Serializable {
 
 	private Integer bookId;
@@ -84,7 +92,6 @@ public class Book implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-
 	@Column(name = "book_id", unique = true, nullable = false)
 	public Integer getBookId() {
 		return this.bookId;

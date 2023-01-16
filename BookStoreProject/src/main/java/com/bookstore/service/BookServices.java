@@ -226,4 +226,58 @@ public class BookServices {
 		
 		
 	}
+	public void listBookByCategory() throws ServletException, IOException {
+		Integer catId = Integer.parseInt(request.getParameter("id"));
+		Category category = categoryDAO.get(catId);
+		if(category == null) {
+			String msg = "The category is not available currently.";
+			request.setAttribute("message", msg);
+			request.getRequestDispatcher("message.jsp").forward(request,response);
+		}
+		List<Book> books = bookDAO.listByCategory(catId);
+		List<Category> listCategories = categoryDAO.listAll();
+		listCategories.forEach(c->System.out.println(c.getName()));		
+		
+		request.setAttribute("listBooks", books);
+		request.setAttribute("category", category);
+		request.setAttribute("listCategory", listCategories);
+
+
+		
+		String listPage = "frontend/books_list_by_category.jsp";
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(listPage);
+		requestDispatcher.forward(request, response);
+		
+	}
+	public void viewBookDetail() throws ServletException, IOException {
+		Integer bookId = Integer.parseInt(request.getParameter("id"));
+		Book book = bookDAO.get(bookId);
+		if (book == null) {
+			String msg = "The book is not available currently. ";
+			request.setAttribute("message", msg);
+			request.getRequestDispatcher("message.jsp").forward(request,response);
+		} else {
+			List<Category> listCategory = categoryDAO.listAll();
+			request.setAttribute("listCategory", listCategory);
+			request.setAttribute("book", book);
+			String detailPage = "frontend/book_detail.jsp";
+			request.getRequestDispatcher(detailPage).forward(request, response);
+		}
+		
+	}
+	public void search() throws ServletException, IOException {
+		String keyword = request.getParameter("keyword");
+		List<Book> result = null;
+		if(keyword.equals("")) {
+			result = bookDAO.listAll();
+		}else {
+			result = bookDAO.search(keyword);
+		}
+		request.setAttribute("result", result);		
+		request.setAttribute("keyword", keyword);
+		String resultPage = "frontend/search_result.jsp";
+		request.getRequestDispatcher(resultPage).forward(request, response);
+	}
+	
+	
 }
