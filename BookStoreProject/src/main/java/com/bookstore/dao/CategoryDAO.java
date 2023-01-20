@@ -4,16 +4,13 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
-
 import com.bookstore.entity.Category;
 import com.mysql.cj.Query;
 import com.mysql.cj.x.protobuf.MysqlxCrud.Update;
 
 public class CategoryDAO extends JpaDAO<Category> implements GenericDAO<Category> {
 
-	public CategoryDAO(EntityManager entityManager) {
-		super(entityManager);
+	public CategoryDAO() {
 		// TODO Auto-generated constructor stub
 	}
 	

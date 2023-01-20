@@ -49,7 +49,7 @@
 				</td>
 				<td> ${book.title}</td>
 				<td> ${book.author}</td>
-				<td> ${book.category.getName()}</td>
+				<td> ${book.getCategory().getName()}</td>
 				<td>$${book.price }</td>
 				<td><fmt:formatDate pattern ="MM/dd/yyyy" value='${book.lastUpdateTime}'/></td>
 				<td> <a href = "edit_book?id=${book.bookId}">Edit</a>

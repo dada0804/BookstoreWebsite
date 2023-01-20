@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,18 +18,15 @@ import com.bookstore.entity.Category;
 
 
 public class CategoryService {
-	private EntityManager entityManager;
-	private CategoryDAO categoryDAO;
-	
+	private CategoryDAO categoryDAO;	
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	
 	
 	
 	
-	public CategoryService(EntityManager entityManager, HttpServletRequest request, HttpServletResponse response) {
-		this.entityManager = entityManager;
-		categoryDAO = new CategoryDAO(entityManager);
+	public CategoryService(HttpServletRequest request, HttpServletResponse response) {
+		categoryDAO = new CategoryDAO();
 		this.request = request;
 		this.response = response;
 	
@@ -39,8 +35,8 @@ public class CategoryService {
 	public void listCategory(String message) throws  IOException, ServletException {
 		List<Category> listCategories = categoryDAO.listAll();
 		request.setAttribute("listCategory", listCategories);
-		request.setAttribute("message", message);
-		request.getRequestDispatcher("category_list.jsp").forward(request, response);
+		String listPage = "category_list.jsp";
+		CommonUtility.forwardToPage(listPage,message, request, response);
 	}
 	
 	public void createCategory() throws ServletException, IOException {
@@ -67,7 +63,7 @@ public class CategoryService {
 //			Category categoryNew = new Category(id,name);
 			request.setAttribute("category",category);
 		}
-		request.getRequestDispatcher(destPage).forward(request, response);		
+		CommonUtility.forwardToPage(destPage, request, response);		
 	}
 
 	public void updateCategory() throws IOException, ServletException {
@@ -104,8 +100,7 @@ public class CategoryService {
 		Category category = categoryDAO.get(id);
 		if(category == null) {
 			String msg = "This category may be deleted by other admins";
-			request.setAttribute("message", msg);
-			request.getRequestDispatcher("message.jsp").forward(request, response);
+			CommonUtility.showMessageBackend(msg, request, response);
 		} else {
 			categoryDAO.delete(id);
 			listCategory("The category has been deleted successfully");

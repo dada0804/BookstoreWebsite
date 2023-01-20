@@ -21,7 +21,6 @@ import com.bookstore.entity.Book;
 import com.bookstore.entity.Category;
 
 public class BookServices {
-	private EntityManager entityManager;
 	private BookDAO bookDAO;
 	private CategoryDAO categoryDAO;
 	private HttpServletRequest request;
@@ -30,10 +29,9 @@ public class BookServices {
 	
 	
 	
-	public BookServices(EntityManager entityManager, HttpServletRequest request, HttpServletResponse response) {
-		this.entityManager = entityManager;
-		bookDAO = new BookDAO(entityManager);
-		categoryDAO = new CategoryDAO(entityManager);
+	public BookServices( HttpServletRequest request, HttpServletResponse response) {
+		bookDAO = new BookDAO();
+		categoryDAO = new CategoryDAO();
 		this.request = request;
 		this.response = response;
 	
@@ -48,15 +46,15 @@ public class BookServices {
 		if (message != null) {
 			request.setAttribute("message", message);
 		}
-		request.getRequestDispatcher("book_list.jsp").forward(request,response);
+		String page = "book_list.jsp";
+		CommonUtility.forwardToPage(page, request, response);
 	}
 	
 	public void showBookNewForm() throws ServletException, IOException {
 		List<Category> listCategory = categoryDAO.listAll();
 		request.setAttribute("listCategory", listCategory);
 		String newPage = "book_form.jsp";
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(newPage);
-		requestDispatcher.forward(request,response);
+		CommonUtility.forwardToPage(newPage, request, response);
 	}
 
 	public void createBook() throws ServletException, IOException {
@@ -136,8 +134,8 @@ public class BookServices {
 		request.setAttribute("listCategory", listCategories);
 		request.setAttribute("book", book);
 		String editPage = "book_form.jsp";
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(editPage);
-		requestDispatcher.forward(request, response);
+		CommonUtility.forwardToPage(editPage, request, response);
+
 	}
 	public void updateBook() throws ServletException, IOException {
 		Integer bookId = Integer.parseInt(request.getParameter("bookId"));
@@ -215,8 +213,7 @@ public class BookServices {
 		String msg = null;
 		if(book == null) {
 			msg = "Couldn't find the book id " + bookId + " or it might be deleted by other admin.";
-			request.setAttribute("message", msg);
-			request.getRequestDispatcher("message.jsp").forward(request,response);
+			CommonUtility.showMessageBackend(msg, request, response);
 		} else {
 			bookDAO.delete(bookId);
 			msg = "The book has been deleted successfully";
@@ -231,22 +228,20 @@ public class BookServices {
 		Category category = categoryDAO.get(catId);
 		if(category == null) {
 			String msg = "The category is not available currently.";
-			request.setAttribute("message", msg);
-			request.getRequestDispatcher("message.jsp").forward(request,response);
+			CommonUtility.showMessageBackend(msg, request, response);
 		}
 		List<Book> books = bookDAO.listByCategory(catId);
-		List<Category> listCategories = categoryDAO.listAll();
-		listCategories.forEach(c->System.out.println(c.getName()));		
+//		List<Category> listCategories = categoryDAO.listAll();
+//		listCategories.forEach(c->System.out.println(c.getName()));		
 		
 		request.setAttribute("listBooks", books);
 		request.setAttribute("category", category);
-		request.setAttribute("listCategory", listCategories);
+//		request.setAttribute("listCategory", listCategories);
 
 
 		
 		String listPage = "frontend/books_list_by_category.jsp";
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(listPage);
-		requestDispatcher.forward(request, response);
+		CommonUtility.forwardToPage(listPage, request, response);
 		
 	}
 	public void viewBookDetail() throws ServletException, IOException {
@@ -254,14 +249,13 @@ public class BookServices {
 		Book book = bookDAO.get(bookId);
 		if (book == null) {
 			String msg = "The book is not available currently. ";
-			request.setAttribute("message", msg);
-			request.getRequestDispatcher("message.jsp").forward(request,response);
+			CommonUtility.showMessageBackend(msg, request, response);
 		} else {
-			List<Category> listCategory = categoryDAO.listAll();
-			request.setAttribute("listCategory", listCategory);
+//			List<Category> listCategory = categoryDAO.listAll();
+//			request.setAttribute("listCategory", listCategory);
 			request.setAttribute("book", book);
 			String detailPage = "frontend/book_detail.jsp";
-			request.getRequestDispatcher(detailPage).forward(request, response);
+			CommonUtility.forwardToPage(detailPage, request, response);
 		}
 		
 	}
@@ -276,8 +270,7 @@ public class BookServices {
 		request.setAttribute("result", result);		
 		request.setAttribute("keyword", keyword);
 		String resultPage = "frontend/search_result.jsp";
-		request.getRequestDispatcher(resultPage).forward(request, response);
-	}
+		CommonUtility.forwardToPage(resultPage, request, response);}
 	
 	
 }

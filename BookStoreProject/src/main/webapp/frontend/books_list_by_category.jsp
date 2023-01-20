@@ -15,13 +15,13 @@
 	<br/><br/>
 	<%@ include file  = "header.jsp"%>
 	
-	<div align = "center">
+	<div class = "center">
 	<h2> ${category.name }</h2>
 	</div>
 	
-	<div align = "center" style = "margin : 0 auto">
+	<div class = "book_group">
 		<c:forEach items = "${listBooks}" var = "book">
-			<div style = "float:left; display: inline-block; margin: 20px">
+			<div class= "book">
 				<div>
 					<a href = "view_book?id=${book.bookId }">
 						<img src = "data:image/jpeg;base64,${book.base64Image}" width="128" height="164">

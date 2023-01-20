@@ -7,14 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bookstore.controller.BaseServlet;
 import com.bookstore.service.CategoryService;
 
 /**
  * Servlet implementation class CreateCategoryServlet
  */
 @WebServlet("/admin/create_category")
-public class CreateCategoryServlet extends BaseServlet {
+public class CreateCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -35,7 +34,7 @@ public class CreateCategoryServlet extends BaseServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		CategoryService categoryService = new CategoryService(entityManager, request, response);
+		CategoryService categoryService = new CategoryService( request, response);
 		categoryService.createCategory();
 	}
 

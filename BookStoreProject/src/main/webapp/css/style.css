@@ -54,10 +54,12 @@ table{
 	border: 1px solid black;
 	/*如果可能，边框会合并为一个单一的边框。*/
 	border-collapse: collapse;
+	
 }
 
 th, td {
 	padding:8px;
+	border: hidden;
 }
 
 th{
@@ -70,6 +72,7 @@ table.form{
 	border: 0;/* 外面的框去掉 */
 	padding: 4px;
 }
+
 
 button{
 	padding: 6px;
@@ -100,4 +103,76 @@ input{
 .error{ /* js自动分配了一个class为error */
 	color:red;
 	margin: 5px;
+}
+
+div.center{
+	margin: auto;
+	width: 80%;
+	text-align: center;
+}
+
+div.book{
+	display: inline-block;
+	margin: 20px;
+	text-align: center;
+}
+
+table.book{
+	width: 80%;
+	border: 0;
+	margin: auto;
+}
+
+div.book_group{
+	margin: 0 auto;
+	width: 80%;
+}
+
+div.next-row{
+	clear: both;
+}
+
+img.book-small{
+	width:128px;
+	height: 164px;
+}
+
+img.book-large{
+	width : 240px;
+	height : 300px;
+}
+
+#book-title{
+	font-size: x-large;
+	font-weight: bold;
+}
+
+#book-author{
+	font-size: large;
+	font-style: italic;
+}
+
+#description{
+	text-align: justify;
+	certical-align: top;
+}
+
+#search-image{
+	display: inline-block; 
+	margin: 20px; 
+	width:10%;
+}
+
+#search-description{
+	display: inline-block; 
+	margin: 20px left; 
+	vertical-align: top; 
+	width: 50%;
+	text-align: left;
+}
+
+#search-price{
+	display: inline-block; 
+	margin: 20px; 
+	vertical-align: top;
 }

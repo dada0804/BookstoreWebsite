@@ -13,26 +13,24 @@ import org.junit.Test;
 
 import com.bookstore.entity.Users;
 
-public class UserDAOTest extends BaseDAOTest {
+public class UserDAOTest {
 	
-	private static UserDAO userDAO = new UserDAO(entityManager);
+	private static UserDAO userDAO = new UserDAO();
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		BaseDAOTest.setUpBeforeClass();
-		userDAO = new UserDAO(entityManager); 
+		userDAO = new UserDAO(); 
 	}
 	
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		BaseDAOTest.tearDownAfterClass();
+		userDAO.close();
 	}
 
 	@Test
 	public void testCreateUsers() {
 		Users user1  = new Users();
-		user1.setUserId(1l);
-		user1.setEmail("hahala@codejava.net");
+		user1.setEmail("hassshala@codejava.net");
 		user1.setFullName("xhhxi");
 		user1.setPassword("assssdfg");	
 		user1 = userDAO.create(user1);
@@ -50,8 +48,8 @@ public class UserDAOTest extends BaseDAOTest {
 	@Test
 	public void testUpdateUsers() {
 		Users user = new Users();
-		user.setUserId(1l);
-		user.setEmail("name@codejava.net");
+//		user.setUserId(11);
+		user.setEmail("namjjje@codejava.net");
 		user.setFullName("name");
 		user.setPassword("you never know");
 		user = userDAO.update(user);

@@ -13,15 +13,15 @@
 	<br/><br/>
 	<%@ include file  = "header.jsp"%>
 	
-	<div align = "center">
+	<div class = "center">
 	<h3>This is main content:  </h3>
 	<h2>New books</h2>	
-		<div align = "center" style = "margin : 0 auto">
+		<div >
 			<c:forEach items = "${listNewBook}" var = "book">
-				<div style = "display: inline-block; margin: 20px">
+				<div class = "book">
 					<div>
 						<a href = "view_book?id=${book.bookId }">
-							<img src = "data:image/jpeg;base64,${book.base64Image}" width="128" height="164">
+							<img src = "data:image/jpeg;base64,${book.base64Image}" class = "book-small">
 						</a>
 					</div>
 						<a href = "view_book?id=${book.bookId }">
@@ -35,7 +35,7 @@
 			</c:forEach>
 		
 		</div>
-	<div align = "center" style = "clear: both">
+	<div class = "next-row">
 	<h2>Best Selling books</h2>
 	<h2>Most-favoured books</h2>
 	</div>	

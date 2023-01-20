@@ -21,16 +21,14 @@ public class UserServices {
 	
 	private UserDAO userDAO;
 	private EntityManagerFactory entityManagerFactory;
-	private EntityManager entityManager;
 	private HttpServletResponse response;
 	private HttpServletRequest request;
 	
 
 	public UserServices(HttpServletRequest request, HttpServletResponse response) {
 		entityManagerFactory = Persistence.createEntityManagerFactory("BookStoreWebsite");
-		entityManager = entityManagerFactory.createEntityManager();
 		
-		userDAO = new UserDAO(entityManager);
+		userDAO = new UserDAO();
 		this.response = response;
 		this.request = request; 
 	}
@@ -53,9 +51,7 @@ public class UserServices {
 			request.setAttribute("message", message);
 		}
 		String listPage = "user_list.jsp";
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(listPage);
-		
-		requestDispatcher.forward(request, response);
+		CommonUtility.forwardToPage(listPage,request, response);
 	}
 	
 	public void createUser() throws IOException, ServletException
@@ -69,10 +65,8 @@ public class UserServices {
 		//check whether the email already exists 
 		Users existUsers = userDAO.findByEmail(email);
 		if (existUsers != null) {
-			String message = "Could not create Use. A user with email " + email + "already exists.";
-			request.setAttribute("message", message);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("message.jsp");
-			dispatcher.forward(request, response);
+			String message = "Could not create Use. A user with email " + email + " already exists.";
+			CommonUtility.showMessageBackend(message, request, response);
 			
 		} else {
 			Users newUser = new Users(email, fullname, password);
@@ -102,8 +96,7 @@ public class UserServices {
 			
 		}
 		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(destPage);
-		requestDispatcher.forward(request, response);
+		CommonUtility.forwardToPage(destPage, request, response);
 	
 	}
 	
@@ -119,12 +112,10 @@ public class UserServices {
 		//此时还没更新 
 		if(userByEmail !=null && userByEmail.getUserId() != userById.getUserId()) {
 			String message1 = "Couldn't update the user. The email already existed";
-			request.setAttribute("message", message1);
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
-			requestDispatcher.forward(request, response);
+			CommonUtility.showMessageBackend(message1, request, response);
 		} else {
 		
-		Users user = new Users(userId,email,fullname,password);
+		Users user = new Users(email,fullname,password);
 		userDAO.update(user);  
 		String message = "User has been updated successfully";
 		listUsers(message);
@@ -139,17 +130,14 @@ public class UserServices {
 		if(userId == 1) 
 		{
 			String message = "The default admin user account cannot be deleted.";
-			request.setAttribute("message", message);
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
-			requestDispatcher.forward(request, response);
+			CommonUtility.showMessageBackend(message, request, response);
 		}
 		else 
 			if(user == null) 
 		{
 			String message = "User with userId " + userId + " has been deleted by other admins.";
-			request.setAttribute("message", message);
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
-			requestDispatcher.forward(request, response);
+			CommonUtility.showMessageBackend(message, request, response);
+
 		}
 		else 
 		{
@@ -167,13 +155,14 @@ public class UserServices {
 		if(loginResult) {
 			System.out.println("User is authenticated");
 			request.getSession().setAttribute("useremail", email);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/");
-			dispatcher.forward(request, response);
+			String page = "/admin/";
+			CommonUtility.forwardToPage(page, request, response);
 		} else {
 			String message = "Login Failed";
 			request.setAttribute("message", message);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-			dispatcher.forward(request, response);
+			String page = "login.jsp";
+			CommonUtility.forwardToPage(page, request, response);
+
 		}
 		
 	}

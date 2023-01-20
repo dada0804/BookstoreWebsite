@@ -23,7 +23,10 @@ import javax.persistence.Table;
 })
 public class Users implements java.io.Serializable {
 
-	private Integer userId;
+	/**
+	 * 
+	 */
+	private Long userId;
 	private String email;
 	private String password;
 	private String fullName;
@@ -39,13 +42,12 @@ public class Users implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-
 	@Column(name = "user_id", unique = true, nullable = false)
-	public Integer getUserId() {
+	public Long getUserId() {
 		return this.userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 

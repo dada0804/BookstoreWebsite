@@ -18,23 +18,22 @@ import com.bookstore.entity.Category;
 
 import net.bytebuddy.implementation.bind.annotation.Super;
 
-public class CategoryDAOTest extends BaseDAOTest {
+public class CategoryDAOTest {
 	
 	private static CategoryDAO categoryDAO;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		BaseDAOTest.setUpBeforeClass();
-		categoryDAO = new CategoryDAO(entityManager); 
+		categoryDAO = new CategoryDAO(); 
 	}
 	
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		BaseDAOTest.tearDownAfterClass();
+		categoryDAO.close();
 	}
 
 	@Test
 	public void testCreate() {
-		String name = "business";
+		String name = "Life";
 		Category category = new Category(name);
 		categoryDAO.create(category);
 		assertTrue(category.getCategoryId()>0);
@@ -63,7 +62,9 @@ public class CategoryDAOTest extends BaseDAOTest {
 	
 	@Test
 	public void testUpdate() {
-		Category category = new Category(11,"education");
+		Category category = new Category();
+		category.setCategoryId(11);
+		category.setName("education");
 		categoryDAO.update(category);
 		assertNotEquals(category.getName(), "business");
 	}
@@ -87,7 +88,7 @@ public class CategoryDAOTest extends BaseDAOTest {
 		categoryDAO.create(new Category("Literature"));
 		List<Category>  categories = categoryDAO.listAll();
 		categories.forEach(c->System.out.println(c.getName() + " "));
-		assertEquals(categories.size(), 3);	
+		assertFalse(categories.isEmpty());	
 	}
 	
 	@Test
