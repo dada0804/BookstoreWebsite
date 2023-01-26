@@ -71,6 +71,8 @@ th{
 table.form{
 	border: 0;/* 外面的框去掉 */
 	padding: 4px;
+	width: 50%;
+	margin: 0 auto;
 }
 
 

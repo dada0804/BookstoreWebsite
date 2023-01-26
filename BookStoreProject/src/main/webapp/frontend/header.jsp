@@ -3,7 +3,8 @@
 
 <div class = "center">
 	<div>
-		<img src = "images/BookstoreLogo.png"/>
+		<a href = "${pageContext.request.contextPath}">
+		<img src = "images/BookstoreLogo.png"/></a>
 	</div>
 	
 	<div>

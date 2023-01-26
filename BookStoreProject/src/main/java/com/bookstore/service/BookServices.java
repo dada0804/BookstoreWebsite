@@ -147,6 +147,7 @@ public class BookServices {
 		if(existBook == null) {
 			String message = "Could not find book with ID " + bookId;
 			listBook(message);
+			return;
 			
 		}
 		
@@ -154,8 +155,7 @@ public class BookServices {
 			readBookFields(existBook);
 			bookDAO.update(existBook);
 			String message = "The book has been updated sucessfully";
-			listBook(message);
-			
+			listBook(message);			
 
 		}
 		

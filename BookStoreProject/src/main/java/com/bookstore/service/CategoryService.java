@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bookstore.dao.BookDAO;
 import com.bookstore.dao.CategoryDAO;
 import com.bookstore.entity.Category;
 
@@ -82,9 +83,6 @@ public class CategoryService {
 	}
 	
 	
-	
-	
-	
 	private boolean testExist(Category category, String msg) throws ServletException, IOException {
 		if(category != null) {
 			request.setAttribute("message", msg);
@@ -102,14 +100,26 @@ public class CategoryService {
 			String msg = "This category may be deleted by other admins";
 			CommonUtility.showMessageBackend(msg, request, response);
 		} else {
+			BookDAO bookDAO = new BookDAO();
+			long numOfBook = bookDAO.countByCategory(id);
+			String message;
+			if (numOfBook>0) {
+				message = "Could not delete the category "+id+" because it contains %d books currently.";
+				message = String.format(message,numOfBook);
+		} else {
 			categoryDAO.delete(id);
-			listCategory("The category has been deleted successfully");
+			message = "The category has been deleted successfully";
 		}
+			listCategory(message);
+
+		
+		
+		
 		
 	}
 	
 	
 	
-	
+	}	
 
 }
