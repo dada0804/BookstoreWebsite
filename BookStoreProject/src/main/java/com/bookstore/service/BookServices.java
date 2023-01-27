@@ -58,7 +58,6 @@ public class BookServices {
 	}
 
 	public void createBook() throws ServletException, IOException {
-		Integer categoryId = Integer.parseInt(request.getParameter("category"));
 		String title = request.getParameter("title");
 		Book existBook = bookDAO.findByTitle(title);
 		if (existBook != null) {

@@ -25,7 +25,7 @@ Welcome, <c:out value = "${sessionScope.useremail}"/> | <a href = "logout">Logou
 		</a> 
 	</div>
 	<div >
-		<a href = "customers">
+		<a href = "list_customer">
 			<img src = "../images/customer.png" class="menu_item"/><br/>Customers
 		</a> 
 	</div>
