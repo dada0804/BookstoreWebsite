@@ -11,17 +11,57 @@
 <body>
 <%@ include file = "header.jsp" %>
 <div align = "center">
-	<h3>Customer Profile Page</h3>
-	
-	
-	<a href = "/BookStoreProject/">Back to Homepage</a>
-	
+	<h2>Welcome, ${loggedCustomer.fullname}</h2>	
+</div>
+<div>
+<table class="form">
+    	<tr>
+    
+    	<td align = "right">Email:     	</td>
+    	
+    	<td align = "left">${loggedCustomer.email}</td>
+    	
+    	
+    	</tr>
+    	<tr>
+    	<td align = "right">Full Name:     	</td>
+    	<td align = "left">${loggedCustomer.fullname}</td>
+    	
+    	
+    	</tr>
+    	
+    	<tr>
+    	<td align = "right">Phone:     	</td>
+    	<td align = "left">${loggedCustomer.phone}</td>   	    	
+    	</tr>
+    	
+    	<tr>
+    	<td align = "right">Address:     	</td>
+    	<td align = "left">${loggedCustomer.address}</td> 	    	
+    	</tr>
+    	
+    	<tr>
+    	<td align = "right">City:     	</td>
+    	<td align = "left">${loggedCustomer.city}</td> 	    	
+    	</tr>
+    	
+    
+    	<tr>
+    	<td align = "right">Zip Code:     	</td>
+    	<td align = "left">${loggedCustomer.zipcode}</td>   	    	
+    	</tr>
+    	
+    	<tr>
+    	<td align = "right">Country:     	</td>
+    	<td align = "left">${loggedCustomer.country}</td>   	    	
+    	</tr>
+    	
+    	</table>
 </div>
 
-
-
-
+<div align = "center">
+		<h5><a href = "edit_profile">Edit My Profile</a></h5>
 	<%@ include file = "footer.jsp" %>
-	
+	</div>
 </body>
 </html>

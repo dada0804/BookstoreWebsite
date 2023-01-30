@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bookstore.controller.admin.customer.ListCustomerServlet;
 import com.bookstore.dao.CustomerDAO;
+import com.bookstore.dao.ReviewDAO;
 import com.bookstore.entity.Customer;
 
 public class CustomerServices {
@@ -49,6 +50,7 @@ public class CustomerServices {
 		} else {		
 			Customer customer = new Customer();
 			readField(customer);
+			customer.setEmail(email);
 			customerDAO.create(customer);
 			String message = "The customer has been created. ";
 			listCustomer(message);
@@ -86,6 +88,7 @@ public class CustomerServices {
 			return;
 		}
 		readField(existCustomer);
+		existCustomer.setEmail(email);
 		customerDAO.update(existCustomer);
 		String message = "The customer has been updated successfully";
 		listCustomer(message);
@@ -94,14 +97,12 @@ public class CustomerServices {
 	
 	public void readField(Customer customer){
 		String fullname = request.getParameter("fullname");
-		String email = request.getParameter("email"); 
 		String password = request.getParameter("password");
 		String phoneNumber = request.getParameter("phone");
 		String address = request.getParameter("address");
 		String city = request.getParameter("city");
 		String zipcode = request.getParameter("zipCode");
 		String country = request.getParameter("country");
-		customer.setEmail(email);
 		customer.setFullname(fullname);
 		customer.setPassword(password);
 		customer.setPhone(phoneNumber);
@@ -118,11 +119,18 @@ public class CustomerServices {
 			String message = "This customer does not exist. It may be deleted by other admins.";
 			CommonUtility.showMessageBackend(message, request, response);
 			return;
-		} else {
-			customerDAO.delete(id);
-			String message = "The customer has been deleted. ";
-			listCustomer(message);
 		}
+		ReviewDAO reviewDAO = new ReviewDAO();
+		long cnt = reviewDAO.countByCustomer(id);
+		if (cnt >= 1) {
+			String message = "Could not delete this customer with ID " + id + " because he/she posted reviews for books.";
+			CommonUtility.showMessageBackend(message, request, response);
+			return;
+		}		
+		customerDAO.delete(id);
+		String message = "The customer has been deleted. ";
+		listCustomer(message);
+		
 		
 	}
 
@@ -146,6 +154,7 @@ public class CustomerServices {
 		} else {		
 			Customer customer = new Customer();
 			readField(customer);
+			customer.setEmail(email);
 			customerDAO.create(customer);
 			String message = "You have successfully registered. <br/> " + "<a href='login'>Click here </a> to log in!";
 			CommonUtility.showMessageFrontend(message, request, response);	
@@ -173,6 +182,25 @@ public class CustomerServices {
 	public void showCustomerProfile() throws ServletException, IOException {
 		String page = "frontend/customer_profile.jsp";
 		CommonUtility.forwardToPage(page, request, response);
+	}
+
+	public void showCustomerEditProfile() throws ServletException, IOException {
+		String page = "frontend/edit_profile.jsp";
+		CommonUtility.forwardToPage(page, request, response);
+		
+	}
+
+	public void updateCustomerProfile() throws ServletException, IOException {
+		Customer customer = (Customer) request.getSession().getAttribute("loggedCustomer");
+		readField(customer);
+		String password = request.getParameter("password");
+		if(password == null) {
+			password = customer.getPassword();
+			customer.setPassword(password);
+		}
+		customerDAO.update(customer);
+		showCustomerProfile();
+		
 	}
 
 

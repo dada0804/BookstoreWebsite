@@ -30,12 +30,12 @@ Welcome, <c:out value = "${sessionScope.useremail}"/> | <a href = "logout">Logou
 		</a> 
 	</div>
 	<div >
-		<a href = "reviews">
+		<a href = "list_review">
 			<img src = "../images/review.png" class="menu_item"/><br/>Reviews
 		</a> 
 	</div>
 	<div >
-		<a href = "orders">
+		<a href = "list_order">
 			<img src = "../images/order.png" class="menu_item"/><br/>Orders
 		</a> 
 	</div>

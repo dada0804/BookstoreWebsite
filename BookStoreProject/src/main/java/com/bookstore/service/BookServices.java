@@ -17,6 +17,7 @@ import javax.servlet.http.Part;
 
 import com.bookstore.dao.BookDAO;
 import com.bookstore.dao.CategoryDAO;
+import com.bookstore.dao.ReviewDAO;
 import com.bookstore.entity.Book;
 import com.bookstore.entity.Category;
 
@@ -213,15 +214,23 @@ public class BookServices {
 		if(book == null) {
 			msg = "Couldn't find the book id " + bookId + " or it might be deleted by other admin.";
 			CommonUtility.showMessageBackend(msg, request, response);
-		} else {
-			bookDAO.delete(bookId);
-			msg = "The book has been deleted successfully";
-			listBook(msg);
-		}
-		
-		
-		
+			return;
+		} 
+		ReviewDAO reviewDAO = new ReviewDAO(); 
+		long cnt = reviewDAO.countByBook(bookId);
+		if (cnt>=1) {
+			msg = "Couldn't delete the book with ID " + bookId + " because it has reviews.";
+			CommonUtility.showMessageBackend(msg, request, response);
+			return;
+		}	
+		bookDAO.delete(bookId);
+		msg = "The book has been deleted successfully";
+		listBook(msg);
 	}
+		
+		
+		
+
 	public void listBookByCategory() throws ServletException, IOException {
 		Integer catId = Integer.parseInt(request.getParameter("id"));
 		Category category = categoryDAO.get(catId);

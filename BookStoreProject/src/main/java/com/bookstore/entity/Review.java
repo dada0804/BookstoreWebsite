@@ -10,6 +10,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,6 +21,14 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "review", catalog = "bookstoredb")
+@NamedQueries({
+	@NamedQuery(name = "Review.findAll", query = "SELECT r FROM Review r"),
+	@NamedQuery(name = "Review.countAll", query = "SELECT COUNT(*) FROM Review r"),
+	@NamedQuery(name = "Review.countByBook", query = "SELECT COUNT(b) FROM Review r "
+			+ "JOIN Book b ON r.book = b.bookId WHERE b.bookId = :bookId"),
+	@NamedQuery(name = "Review.countByCustomer", query = "SELECT COUNT(c) FROM Review r "
+			+ "JOIN Customer c ON r.customer = c.customerId WHERE c.customerId = :customerId")
+})
 public class Review implements java.io.Serializable {
 
 	private Integer reviewId;
@@ -53,7 +63,7 @@ public class Review implements java.io.Serializable {
 		this.reviewId = reviewId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "book_id", nullable = false)
 	public Book getBook() {
 		return this.book;
@@ -63,7 +73,7 @@ public class Review implements java.io.Serializable {
 		this.book = book;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "customer_id", nullable = false)
 	public Customer getCustomer() {
 		return this.customer;

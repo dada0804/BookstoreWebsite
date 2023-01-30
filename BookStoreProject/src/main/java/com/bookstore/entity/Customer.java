@@ -172,6 +172,7 @@ public class Customer implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
+	//shouldn't change to EAGER, or list customer feature will load all customer objects with associated review objects 
 	public Set<Review> getReviews() {
 		return this.reviews;
 	}
