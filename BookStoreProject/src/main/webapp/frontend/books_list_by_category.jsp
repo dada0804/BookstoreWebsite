@@ -31,7 +31,10 @@
 						<div><b>${book.title}</b>
 					</a>
 				</div>
-				<div>Rating *****</div>
+				<div>
+								<%@ include file  = "book_rating.jsp"%>
+
+				</div>
 				<div><i>${book.author}</i></div>
 				<div><b>${book.price }</b></b></div>
 			</div>

@@ -97,8 +97,20 @@ public class ReviewDAOTest {
 		review.setRating(3);
 		review.setComment("Learned something");
 		
+		Review review2 = new Review();
+		Customer customer2 = new Customer();
+		customer2.setCustomerId(13); // make sure it exists in the database 
+		
+		review2.setCustomer(customer2);
+		review2.setBook(book);
+
+		review2.setHeadline("Read it!!!");
+		review2.setRating(5);
+		review2.setComment("Excellent");
+		
 		Review created = reviewDAO.create(review);
-		assertTrue(created.getReviewId()>0);
+		Review created2 = reviewDAO.create(review2);
+		assertTrue(created2.getReviewId()>0);
 		
 	}
 

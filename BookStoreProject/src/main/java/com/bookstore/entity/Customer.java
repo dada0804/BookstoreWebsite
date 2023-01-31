@@ -1,6 +1,7 @@
 package com.bookstore.entity;
 // Generated Dec 23, 2022, 6:31:45 PM by Hibernate Tools 4.3.6.Final
 
+import java.beans.Transient;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
