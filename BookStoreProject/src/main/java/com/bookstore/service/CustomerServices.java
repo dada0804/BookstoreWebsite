@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.bookstore.controller.admin.customer.ListCustomerServlet;
 import com.bookstore.dao.CustomerDAO;
@@ -168,9 +169,17 @@ public class CustomerServices {
 		Customer customer = customerDAO.checkLogin(email, password);
 		String message = null;
 		if (customer != null) {
-			String profilePage = "frontend/customer_profile.jsp";
-			request.getSession().setAttribute("loggedCustomer",customer);
-			CommonUtility.forwardToPage(profilePage, request, response);
+			HttpSession session = request.getSession();
+			session.setAttribute("loggedCustomer",customer);
+			Object objRedirectURL = session.getAttribute("redirectURL");
+			String targetPage = null;
+			if(objRedirectURL != null) {
+				String redirectURL = (String) objRedirectURL;
+				session.removeAttribute("redirectURL");
+				response.sendRedirect(redirectURL);
+			} else {
+				showCustomerProfile();
+			}
 		} else {
 			message = "Login failed. Please check your email and password.";
 			request.setAttribute("message", message);

@@ -8,6 +8,9 @@
 <meta charset="UTF-8">
 <title>${book.title}-OnlineBooks Store</title>
 <link rel="stylesheet" href="css/style.css">
+<script type = "text/javascript" src="js/jquery-3.6.1.min.js"></script> 
+
+
 
 </head>
 <body>
@@ -48,7 +51,7 @@
 			<tr>
 				<td><h3><a id = "reviews">Customer Reviews</a></h3></td>
 				<td colspan="2" align="center">
-					<button>Write a Customer Review</button>
+					<button id = "buttonWriteReview">Write a review</button>
 				</td>
 			</tr>
 
@@ -88,6 +91,14 @@
 	</div>
 
 	<%@ include file="footer.jsp"%>
+	<script type = "text/javascript">
+	$(document).ready(function(){
+		$('#buttonWriteReview').click(function(){
+			window.location="write_review?book_id=" + ${book.bookId};
+		});
+	})
+	
+	</script>
 	<br />
 	<br />
 </body>

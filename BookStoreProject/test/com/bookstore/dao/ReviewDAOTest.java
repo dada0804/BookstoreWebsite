@@ -126,5 +126,21 @@ public class ReviewDAOTest {
 	public void testFind() {
 		fail("Not yet implemented");
 	}
+	
+	@Test
+	public void testFindByCustomerAndBook() {
+		Integer customerId = 13;
+		Integer bookId = 42; 
+		Review review = reviewDAO.findByCustomerAndBook(customerId, bookId);
+		assertTrue(review.getHeadline().equals("Read it!!!"));
+	}
+	
+	@Test
+	public void testFindByCustomerAndBookFail() {
+		Integer customerId = 13;
+		Integer bookId = 48; 
+		Review review = reviewDAO.findByCustomerAndBook(customerId, bookId);
+		assertNull(review);
+	}
 
 }

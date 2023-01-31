@@ -1,5 +1,6 @@
 package com.bookstore.service;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -7,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.bookstore.dao.BookDAO;
 import com.bookstore.dao.CustomerDAO;
 import com.bookstore.dao.ReviewDAO;
+import com.bookstore.entity.Book;
+import com.bookstore.entity.Customer;
 import com.bookstore.entity.Review;
 
 import java.io.IOException;
@@ -97,6 +100,50 @@ public class ReviewService {
 			reviewDAO.delete(id);
 			listReview("The review has been deleted.");
 		}
+	}
+
+
+	public void showReviewForm() throws ServletException, IOException {
+		Integer bookId = Integer.parseInt(request.getParameter("book_id"));
+		Book book = bookDAO.get(bookId);
+		request.setAttribute("book", book);
+		Customer customer = (Customer) request.getSession().getAttribute("loggedCustomer");
+		Integer customerId = customer.getCustomerId();
+		Review review = reviewDAO.findByCustomerAndBook(customerId, bookId);
+		String targetPage = "frontend/review_form.jsp";	
+		if(review != null) {
+			request.setAttribute("review",review);
+			targetPage = "frontend/review_info.jsp";	
+		} 
+		CommonUtility.forwardToPage(targetPage, request, response);	
+
+		
+	}
+
+
+	public void submitReview() throws ServletException, IOException {
+		Integer bookId = Integer.parseInt(request.getParameter("bookId"));
+		Book book = bookDAO.get(bookId);
+		Customer customer = (Customer) request.getSession().getAttribute("loggedCustomer");
+		Integer  rating = Integer.parseInt(request.getParameter("rating"));
+		String headline = request.getParameter("headline");
+		String comment = request.getParameter("comment");
+		
+		Review review = new Review();
+		review.setBook(book);
+		review.setComment(comment);
+		review.setCustomer(customer);
+		review.setHeadline(headline);
+		review.setRating(rating);
+		
+		Review newReview = reviewDAO.create(review);
+		String messagePage = "frontend/review_done.jsp";
+		request.setAttribute("book", book);
+		CommonUtility.forwardToPage(messagePage, request, response);
+		
+		
+		
+		
 	}
 
 }
