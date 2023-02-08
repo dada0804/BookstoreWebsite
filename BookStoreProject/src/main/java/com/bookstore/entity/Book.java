@@ -63,6 +63,11 @@ public class Book implements java.io.Serializable {
 	private Set<Review> reviews = new HashSet<Review>(0);
 	private Set<OrderDetail> orderDetails = new HashSet<OrderDetail>(0);
 
+	public Book(Integer id) {
+		super();
+		this.bookId = id;
+	}
+	
 	public Book() {
 	}
 

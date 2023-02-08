@@ -49,7 +49,7 @@
 							</div>
 							<div id = "search-price">
 								<h3><b>$${book.price }</b></h3>
-								<a href = "">Add to cart </a>
+								<a href = "add_to_cart?book_id=${book.bookId}">Add to cart </a>
 							</div>
 					</div>
 				</c:forEach>

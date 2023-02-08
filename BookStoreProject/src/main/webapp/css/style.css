@@ -59,7 +59,6 @@ table{
 
 th, td {
 	padding:8px;
-	border: hidden;
 }
 
 th{
@@ -123,6 +122,10 @@ table.book{
 	width: 80%;
 	border: 0;
 	margin: auto;
+}
+
+table.normal{
+	border:0;
 }
 
 div.book_group{
