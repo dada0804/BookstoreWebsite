@@ -17,6 +17,7 @@ import javax.servlet.http.Part;
 
 import com.bookstore.dao.BookDAO;
 import com.bookstore.dao.CategoryDAO;
+import com.bookstore.dao.OrderDAO;
 import com.bookstore.dao.ReviewDAO;
 import com.bookstore.entity.Book;
 import com.bookstore.entity.Category;
@@ -215,14 +216,18 @@ public class BookServices {
 			msg = "Couldn't find the book id " + bookId + " or it might be deleted by other admin.";
 			CommonUtility.showMessageBackend(msg, request, response);
 			return;
-		} 
+		}
+		OrderDAO orderDAO = new OrderDAO();
+		long countByOrder = orderDAO.countByBook(bookId);
 		ReviewDAO reviewDAO = new ReviewDAO(); 
-		long cnt = reviewDAO.countByBook(bookId);
-		if (cnt>=1) {
-			msg = "Couldn't delete the book with ID " + bookId + " because it has reviews.";
+		long countByReview = reviewDAO.countByBook(bookId);
+		if (countByOrder>=1 || countByReview>=1) {
+			msg = "Couldn't delete the book with ID " + bookId + " because it has " + countByOrder + " order(s) and " + countByReview + " review(s).";
 			CommonUtility.showMessageBackend(msg, request, response);
 			return;
-		}	
+		}
+				
+
 		bookDAO.delete(bookId);
 		msg = "The book has been deleted successfully";
 		listBook(msg);

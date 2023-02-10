@@ -25,9 +25,9 @@ import javax.persistence.Transient;
 @NamedQueries({
 	@NamedQuery(name = "Review.findAll", query = "SELECT r FROM Review r"),
 	@NamedQuery(name = "Review.countAll", query = "SELECT COUNT(*) FROM Review r"),
-	@NamedQuery(name = "Review.countByBook", query = "SELECT COUNT(b) FROM Review r "
+	@NamedQuery(name = "Review.countByBook", query = "SELECT COUNT(*) FROM Review r "
 			+ "WHERE r.book.bookId = :bookId"),
-	@NamedQuery(name = "Review.countByCustomer", query = "SELECT COUNT(c) FROM Review r "
+	@NamedQuery(name = "Review.countByCustomer", query = "SELECT COUNT(*) FROM Review r "
 			+ "WHERE r.customer.customerId = :customerId"),
 	@NamedQuery(name = "Review.findByCustomerAndBook", query = "SELECT r FROM Review r  "
 			+ "WHERE r.book.bookId = :bookId AND r.customer.customerId = :customerId")

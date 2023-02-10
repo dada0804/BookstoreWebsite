@@ -1,9 +1,13 @@
 package com.bookstore.entity;
 // Generated Dec 23, 2022, 6:31:45 PM by Hibernate Tools 4.3.6.Final
 
+import java.beans.Transient;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +16,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,6 +28,11 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "book_order", catalog = "bookstoredb")
+@NamedQueries({
+	@NamedQuery(name = "BookOrder.findAll", query = "SELECT bo FROM BookOrder bo ORDER BY bo.orderDate DESC"),
+	@NamedQuery(name = "BookOrder.countAll", query = "SELECT COUNT(*) FROM BookOrder"),
+	@NamedQuery(name = "BookOrder.countByCustomer", query = "SELECT COUNT(*) FROM BookOrder bo WHERE bo.customer.customerId = :customerId")
+})
 public class BookOrder implements java.io.Serializable {
 
 	private Integer orderId;
@@ -75,7 +86,7 @@ public class BookOrder implements java.io.Serializable {
 		this.orderId = orderId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "customer_id", nullable = false)
 	public Customer getCustomer() {
 		return this.customer;
@@ -133,6 +144,10 @@ public class BookOrder implements java.io.Serializable {
 
 	@Column(name = "total", nullable = false, precision = 12, scale = 0)
 	public float getTotal() {
+		this.total = 0;
+		for (OrderDetail od : this.orderDetails) {
+			this.total += od.getSubtotal();
+		}
 		return this.total;
 	}
 
@@ -149,7 +164,9 @@ public class BookOrder implements java.io.Serializable {
 		this.status = status;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "bookOrder")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "bookOrder",cascade = CascadeType.ALL, orphanRemoval = true)
+//	The meaning of CascadeType.ALL is that the persistence will propagate (cascade) all EntityManager operations (PERSIST, REMOVE, REFRESH, MERGE, DETACH) to the relating entities.
+//	orphanRemoval is an entirely ORM-specific thing. It marks "child" entity to be removed when it's no longer referenced from the "parent" entity, e.g. when you remove the child entity from the corresponding collection of the parent entity.
 	public Set<OrderDetail> getOrderDetails() {
 		return this.orderDetails;
 	}
@@ -157,5 +174,35 @@ public class BookOrder implements java.io.Serializable {
 	public void setOrderDetails(Set<OrderDetail> orderDetails) {
 		this.orderDetails = orderDetails;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(orderId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BookOrder other = (BookOrder) obj;
+		return Objects.equals(orderId, other.orderId);
+	}
+	
+	@javax.persistence.Transient
+	public int getBookCopies() {
+		int total = 0; 
+		for (OrderDetail od : this.orderDetails) {
+			total += od.getQuantity();
+		}
+		return total;
+	}
+
+	
+	
+	
 
 }

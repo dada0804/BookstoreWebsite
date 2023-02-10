@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.bookstore.controller.admin.customer.ListCustomerServlet;
 import com.bookstore.dao.CustomerDAO;
+import com.bookstore.dao.OrderDAO;
 import com.bookstore.dao.ReviewDAO;
 import com.bookstore.entity.Customer;
 
@@ -122,9 +123,12 @@ public class CustomerServices {
 			return;
 		}
 		ReviewDAO reviewDAO = new ReviewDAO();
-		long cnt = reviewDAO.countByCustomer(id);
-		if (cnt >= 1) {
-			String message = "Could not delete this customer with ID " + id + " because he/she posted reviews for books.";
+		long countByReview = reviewDAO.countByCustomer(id);
+		OrderDAO orderDAO = new OrderDAO();
+		long countByOrder = orderDAO.countByCustomer(id);
+		
+		if (countByReview >= 1 || countByOrder >= 1) {
+			String message = "Could not delete this customer with ID " + id + " because he/she posted " + countByReview + " reviews and placed " + countByOrder + " orders.";
 			CommonUtility.showMessageBackend(message, request, response);
 			return;
 		}		
