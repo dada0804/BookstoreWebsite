@@ -170,5 +170,25 @@ public class OrderDAOTest {
 		long cnt = orderDAO.count();
 		assertTrue(cnt == 2);
 	}
+	
+	@Test
+	public void testListCustomer() {
+		Integer customerId = 16; 
+		List<BookOrder> bookOrders = orderDAO.listByCustomer(customerId);
+		for (BookOrder order : bookOrders) {
+			System.out.println(order.getTotal());
+		}
+		assertNotNull(bookOrders);
+		
+		
+	}
+	
+	@Test
+	public void testListCustomerNotExist() {
+		Integer customerId = 199; 
+		List<BookOrder> bookOrders = orderDAO.listByCustomer(customerId);
+		assertTrue(bookOrders.isEmpty());
+			
+	}
 
 }

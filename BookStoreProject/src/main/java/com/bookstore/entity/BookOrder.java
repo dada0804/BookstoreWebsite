@@ -31,7 +31,9 @@ import javax.persistence.TemporalType;
 @NamedQueries({
 	@NamedQuery(name = "BookOrder.findAll", query = "SELECT bo FROM BookOrder bo ORDER BY bo.orderDate DESC"),
 	@NamedQuery(name = "BookOrder.countAll", query = "SELECT COUNT(*) FROM BookOrder"),
-	@NamedQuery(name = "BookOrder.countByCustomer", query = "SELECT COUNT(*) FROM BookOrder bo WHERE bo.customer.customerId = :customerId")
+	@NamedQuery(name = "BookOrder.countByCustomer", query = "SELECT COUNT(*) FROM BookOrder bo WHERE bo.customer.customerId = :customerId"),
+	@NamedQuery(name = "BookOrder.findByCustomer", query = "SELECT bo FROM BookOrder bo WHERE bo.customer.customerId=:customerId"),
+	@NamedQuery(name = "BookOrder.findByIdAndCustomer", query = "SELECT bo FROM BookOrder bo WHERE bo.orderId = :orderId AND bo.customer.customerId = :customerId")
 })
 public class BookOrder implements java.io.Serializable {
 

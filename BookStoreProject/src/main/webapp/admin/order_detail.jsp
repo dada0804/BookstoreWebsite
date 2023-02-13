@@ -99,9 +99,9 @@
 			</tr>
 	</table>
 	<br/>
-		<a href = "edit_order?id=${order.orderId}">Edit Order</a>   
+		<a href = "edit_order?id=${order.orderId}">Edit this Order</a>   
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href = "delete_order?id=${order.orderId}">Delete Order</a></td>	
+		<a href = "delete_order?id=${order.orderId}">Delete this Order</a></td>	
 	</div>
 
 	<%@ include file = "footer.jsp" %>
