@@ -244,6 +244,25 @@ public class BookDAOTest{
 		System.out.println(cnt);
 		assertTrue(cnt > 0);
 	}
+	
+	@Test
+	public void testListBestSellers() {
+		List<Book> books =  bookDAO.listBestSellers();
+		for (Book book : books) {
+			System.out.println(book.getBookId() + " - " + book.getTitle());
+		}
+		assertTrue(books.size() == 4);
+		
+	}
+	
+	@Test
+	public void testListMostFavoredBooks() {
+		List<Book> books = bookDAO.listMostFavoredBooks();
+		for (Book book : books) {
+			System.out.println(book.getBookId() + " - " + book.getTitle());
+		}
+		assertTrue(books.size() == 4);
+	}
 
 
 }

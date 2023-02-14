@@ -90,11 +90,14 @@ public class OrderService {
 			orderDetail.setBook(book);
 			orderDetail.setBookOrder(order);
 			orderDetail.setQuantity(qty);
+			orderDetail.setSubtotal(book.getPrice()*qty);
 			orderDetails.add(orderDetail);
 		}
 		
 		order.setOrderDetails(orderDetails);
+		order.setTotal();
 		orderDAO.create(order);
+		request.getSession().setAttribute("cart", null);;
 		String message = "Thank You! Your order has been received. We will deliver your books within a few days.";
 		CommonUtility.showMessageFrontend(message, request, response);
 	}

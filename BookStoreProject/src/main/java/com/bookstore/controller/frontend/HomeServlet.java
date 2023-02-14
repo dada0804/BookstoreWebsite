@@ -32,8 +32,12 @@ public class HomeServlet extends HttpServlet {
 		
 //		listCategories.forEach(c->System.out.println(c.getName()));			
 		List<Book> listNewBooks = bookDAO.listNewBooks();
+		List<Book> listBestSellers = bookDAO.listBestSellers();
+		List<Book> listMostFavoredBooks = bookDAO.listMostFavoredBooks();
 		
 		request.setAttribute("listNewBook", listNewBooks);
+		request.setAttribute("listBestSellers", listBestSellers);
+		request.setAttribute("mostFavoredBooks", listMostFavoredBooks);
 
 		
 		String homePage = "frontend/index.jsp";

@@ -30,7 +30,8 @@ import javax.persistence.Transient;
 	@NamedQuery(name = "Review.countByCustomer", query = "SELECT COUNT(*) FROM Review r "
 			+ "WHERE r.customer.customerId = :customerId"),
 	@NamedQuery(name = "Review.findByCustomerAndBook", query = "SELECT r FROM Review r  "
-			+ "WHERE r.book.bookId = :bookId AND r.customer.customerId = :customerId")
+			+ "WHERE r.book.bookId = :bookId AND r.customer.customerId = :customerId"),
+	@NamedQuery(name = "Review.mostFavoredBooks", query = "SELECT r.book, COUNT(r.book.bookId) AS ReviewCount, AVG(r.rating) as AvgRating FROM Review r GROUP BY r.book.bookId Having AVG(r.rating)>=4.0 ORDER BY ReviewCount DESC, AvgRating DESC" )
 })
 public class Review implements java.io.Serializable {
 

@@ -22,7 +22,9 @@ import javax.persistence.Transient;
 @Table(name = "order_detail", catalog = "bookstoredb")
 @NamedQueries({
 	@NamedQuery(name = "OrderDetail.countByBook",
-			query = "SELECT COUNT(*) FROM OrderDetail od WHERE od.book.bookId =:bookId")
+			query = "SELECT COUNT(*) FROM OrderDetail od WHERE od.book.bookId =:bookId"),
+	@NamedQuery(name = "OrderDetail.bestSeller",  
+	query = "SELECT od.book FROM OrderDetail od GROUP by od.book.bookId ORDER BY SUM(od.quantity) DESC")
 })
 public class OrderDetail implements java.io.Serializable {
 

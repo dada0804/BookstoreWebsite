@@ -30,9 +30,9 @@ public class UserDAOTest {
 	@Test
 	public void testCreateUsers() {
 		Users user1  = new Users();
-		user1.setEmail("hassshala@codejava.net");
-		user1.setFullName("xhhxi");
-		user1.setPassword("assssdfg");	
+		user1.setEmail("admin@evergreen.com");
+		user1.setFullName("Admin1");
+		user1.setPassword("admin1");	
 		user1 = userDAO.create(user1);
 		assertTrue(user1.getUserId()>0);	
 	}	
