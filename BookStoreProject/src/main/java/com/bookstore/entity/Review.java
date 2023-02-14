@@ -23,7 +23,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "review", catalog = "bookstoredb")
 @NamedQueries({
-	@NamedQuery(name = "Review.findAll", query = "SELECT r FROM Review r"),
+	@NamedQuery(name = "Review.findAll", query = "SELECT r FROM Review r Order BY r.reviewTime DESC"),
 	@NamedQuery(name = "Review.countAll", query = "SELECT COUNT(*) FROM Review r"),
 	@NamedQuery(name = "Review.countByBook", query = "SELECT COUNT(*) FROM Review r "
 			+ "WHERE r.book.bookId = :bookId"),

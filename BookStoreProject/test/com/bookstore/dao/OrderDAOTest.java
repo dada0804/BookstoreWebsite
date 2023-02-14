@@ -190,5 +190,13 @@ public class OrderDAOTest {
 		assertTrue(bookOrders.isEmpty());
 			
 	}
+	
+	@Test
+	public void testListMostRecentSales() {
+		List<BookOrder> bookOrders = orderDAO.listMostRecentSales();
+		
+		assertTrue(bookOrders.size()==3);
+		
+	}
 
 }

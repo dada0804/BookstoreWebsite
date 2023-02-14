@@ -17,7 +17,7 @@
 <div align = "center">
 	<h2 class="pageheading">Category Management</h2>
 	<h3>
-	<a href = "category_form.jsp">Create New Category</a>
+	<a href = "create_category">Create New Category</a>
 	</h3> 
 	</div>
 

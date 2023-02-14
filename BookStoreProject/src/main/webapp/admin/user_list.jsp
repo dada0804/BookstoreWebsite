@@ -17,7 +17,7 @@
 <div align = "center">
 	<h2 class="pageheading">Users Management</h2>
 	<h3>
-	<a href = "user_form.jsp">Create New User</a>
+	<a href = "create_user">Create New User</a>
 	</h3> 
 	</div>
 

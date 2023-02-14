@@ -142,5 +142,11 @@ public class ReviewDAOTest {
 		Review review = reviewDAO.findByCustomerAndBook(customerId, bookId);
 		assertNull(review);
 	}
+	
+	@Test
+	public void testListMostRecentReviews() {
+		List<Review> reviews = reviewDAO.listMostRecentReviews();
+		assertTrue(reviews.size() == 3);
+	}
 
 }
