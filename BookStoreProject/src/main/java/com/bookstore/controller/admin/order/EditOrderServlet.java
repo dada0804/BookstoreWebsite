@@ -1,4 +1,4 @@
-package com.bookstore.controller.frontend.order;
+package com.bookstore.controller.admin.order;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,31 +7,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.hql.internal.ast.tree.OrderByClause;
-
 import com.bookstore.service.OrderService;
 
 /**
- * Servlet implementation class ShowOrderDetailServlet
+ * Servlet implementation class EditOrderServlet
  */
-@WebServlet("/show_order_detail")
-public class ShowOrderDetailServlet extends HttpServlet {
+@WebServlet("/admin/edit_order")
+public class EditOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShowOrderDetailServlet() {
+    public EditOrderServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		OrderService orderService = new OrderService(request, response);
-		orderService.showOrderDetail();
+		orderService.showEditOrderForm();
 	}
 
 }

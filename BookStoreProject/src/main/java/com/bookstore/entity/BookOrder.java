@@ -146,15 +146,20 @@ public class BookOrder implements java.io.Serializable {
 
 	@Column(name = "total", nullable = false, precision = 12, scale = 0)
 	public float getTotal() {
-		this.total = 0;
-		for (OrderDetail od : this.orderDetails) {
-			this.total += od.getSubtotal();
-		}
+		
 		return this.total;
 	}
 
 	public void setTotal(float total) {
-		this.total = total;
+		this.total =total;
+	}
+	
+	@javax.persistence.Transient
+	public void setTotal() {
+		this.total = 0;
+		for (OrderDetail od : this.orderDetails) {
+			this.total += od.getSubtotal();
+		};
 	}
 
 	@Column(name = "status", nullable = false, length = 20)

@@ -117,6 +117,78 @@ public class OrderService {
 		CommonUtility.forwardToPage(page, request, response);
 		
 	}
+	public void showEditOrderForm() throws ServletException, IOException {
+		Integer orderId = Integer.parseInt(request.getParameter("id"));
+		BookOrder bookOrder = orderDAO.get(orderId);
+		if(bookOrder == null) {
+			String message = "Could not find order with ID " + orderId ;
+			listOrders(message);
+			return;
+		}
+		HttpSession session = request.getSession();
+		session.setAttribute("order", bookOrder);
+		String page = "order_form.jsp";
+		CommonUtility.forwardToPage(page, request, response);
+		
+	}
+	public void updateOrder() throws ServletException, IOException {
+		BookOrder order = (BookOrder) request.getSession().getAttribute("order");
+		
+		String recipientName = request.getParameter("recipientName");
+		String recipientPhone = request.getParameter("recipientPhone");
+		String address = request.getParameter("address");
+		String paymentMethod = request.getParameter("paymentMethod");
+		String orderStatus = request.getParameter("orderStatus");
+		
+		order.setRecipientName(recipientName);
+		order.setRecipientPhone(recipientPhone);
+		order.setShippingAddress(address);
+		order.setPaymentMethod(paymentMethod);
+		order.setStatus(orderStatus);
+		
+		String[] arrayBookId = request.getParameterValues("bookId");
+		String[] arrayPrice = request.getParameterValues("price");
+		String[] arrayQuantity = new String[arrayBookId.length];
+		for (int i = 0; i < arrayBookId.length; i++) {
+			arrayQuantity[i] = request.getParameter("quantity"+(i+1));
+		}
+		Set<OrderDetail> orderDetails = order.getOrderDetails();
+		orderDetails.clear();
+		for(int i = 0; i < arrayBookId.length; i++) {
+			int bookId = Integer.parseInt(arrayBookId[i]);
+			int quantity = Integer.parseInt(arrayQuantity[i]);
+			float price = Float.parseFloat(arrayPrice[i]);
+			OrderDetail orderDetail  = new OrderDetail();
+			orderDetail.setBook(new Book(bookId));
+			orderDetail.setBookOrder(order);
+			orderDetail.setQuantity(quantity);
+			System.out.println(orderDetail.getBook().getPrice());
+			float subtotal = price * quantity;
+			orderDetail.setSubtotal(subtotal);
+			orderDetails.add(orderDetail);
+		}
+		order.setOrderDetails(orderDetails);
+		order.setTotal();
+		
+		orderDAO.update(order); 
+		
+		String message = "The order " + order.getOrderId() + " has been udpated successfully!";
+		
+		listOrders(message);
+		
+	}
+	public void deleteOrder() throws ServletException, IOException {
+		Integer orderId = Integer.parseInt(request.getParameter("id"));
+		BookOrder order = orderDAO.get(orderId);
+		String message = null;
+		if(order == null) {
+			message = "The order " + orderId + " does not exist.";
+		} else {
+		orderDAO.delete(orderId);
+		message = "The order " + orderId + " has been deleted successfully.";}
+		listOrders(message);
+		
+	}
 	
 	
 	

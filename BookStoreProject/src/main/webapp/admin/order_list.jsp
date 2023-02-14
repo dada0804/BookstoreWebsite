@@ -51,7 +51,7 @@
 				<td>
 				<a href = "view_order?id=${order.orderId}">Details</a>
 				<a href = "edit_order?id=${order.orderId}">Edit</a>   
-				<a href = "delete_order?id=${order.orderId}">Delete</a>   </td>
+				<a href="javascript:void(0);" class = "deleteLink"  id="${order.orderId}">Delete</a>   </td>
 			</tr>
 			</c:forEach>
 	</table>	
@@ -62,9 +62,9 @@
 	$(document).ready(function(){
 		$(".deleteLink").each(function(){/* 对每个为deleteLink的function  */
 			$(this).on("click",function(){
-				categoryId=$(this).attr("id");/* this指的是deleteLink */
-				if (confirm("Are you sure you want to delete the category with ID " + categoryId + " ?")){
-					window.location = "delete_category?id=" + categoryId; //
+				orderId=$(this).attr("id");/* this指的是deleteLink */
+				if (confirm("Are you sure you want to delete the order with ID " + orderId + " ?")){
+					window.location = "delete_order?id=" + orderId; //
 				}
 		});
 	});
